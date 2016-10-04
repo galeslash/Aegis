@@ -70,4 +70,5 @@
     <!-- Register -->
     <string name="register">Register</string>
 
+    <string name="title_activity_contact_us">contactUS</string>
 </resources>
