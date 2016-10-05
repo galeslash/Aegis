@@ -19,4 +19,7 @@ public class HomePage extends AppCompatActivity {
     public void contactUs(View view) {
         startActivity(new Intent(this, Contact_Us.class));
     }
+    public void onRegister(View view){
+        startActivity(new Intent(this, Register.class));
+    }
 }
