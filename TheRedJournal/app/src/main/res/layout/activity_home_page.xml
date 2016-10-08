@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_home_page"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_home_page"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,96 +15,100 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="311dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:id="@+id/Picture"
-            android:background="#d3d3d3"
-            android:layout_weight="0.8">
+            android:background="#d3d3d3">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/join_our_cause"
+                android:src="@drawable/join_our_cause"
                 android:id="@+id/imageView2"
-                android:focusable="false" />
+                android:focusable="false"
+                tools:ignore="ContentDescription"
+                android:scaleType="fitXY" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/button_layout"
-            android:layout_weight="0.1">
+            android:id="@+id/button_layout">
 
             <Button
-                android:text="Donor"
-                android:layout_width="wrap_content"
+                android:id="@+id/btDonor"
+                style="?android:buttonBarButtonStyle"
+                android:text="@string/donor"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/button2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_weight="1.35"
                 android:textColor="#ffffff"
-                android:background="#ff0000"
-                android:gravity="center"
-                android:id="@+id/@+id/btDonor" />
+                android:background="#E14441"
+                android:gravity="center"/>
 
             <Button
-                android:text="How to Donor?"
-                android:layout_width="wrap_content"
-                android:layout_height="61dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_weight="1.00"
+                android:id="@+id/btGuide"
+                style="?android:buttonBarButtonStyle"
+                android:text="@string/how_to_donor"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:background="#ffffff"
-                android:textColor="#ff0000"
-                android:gravity="center"
-                android:id="@+id/@+id/btGuide" />
+                android:textColor="#E14441"
+                android:gravity="center" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="114dp"
+            android:layout_height="95dp"
             android:id="@+id/trivia"
-            android:background="#85FA75"
-            android:layout_weight="0.1">
+            android:background="#EBEBEB"
+            android:textColor="#E14441">
 
             <ImageView
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/thinkred"
                 android:id="@+id/imageView"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="5dp"
+                tools:ignore="ContentDescription"/>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/@+id/did_you_know"
-                android:background="#b19cd9"
-                android:layout_weight="1">
+                android:id="@+id/did_you_know">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Did You Know?"
+                    android:layout_height="wrap_content"
+                    android:text="@string/did_you_know"
+                    android:textStyle="bold"
                     android:id="@+id/textView"
-                    android:layout_below="@+id/button"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="11dp"
-                    android:layout_marginStart="11dp" />
+                    android:textColor="#E14441"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"/>
+
+                <TextView
+                    android:text="@string/trivia_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/trivia_content"
+                    android:textColor="#E14441"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"/>
+
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
-</RelativeLayout>

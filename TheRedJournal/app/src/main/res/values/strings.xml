@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TheRedJournal</string>
+    <string name="donor">Donor</string>
+    <string name="did_you_know">Did You Know?</string>
+    <string name="how_to_donor">How to Donor?</string>
+    <string name="trivia_content">"Ricky Arkan is the best programmer in the world, and he's totally cool and shit."</string>
 </resources>
