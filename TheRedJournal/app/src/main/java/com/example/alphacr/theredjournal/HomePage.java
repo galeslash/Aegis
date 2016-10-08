@@ -23,6 +23,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
     // Bikin Array
     // Random dapetin index array
     // Assign textview
