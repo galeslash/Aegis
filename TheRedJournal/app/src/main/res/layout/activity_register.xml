@@ -57,7 +57,7 @@
         android:text="Gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gender"
+        android:id="@+id/text"
         android:layout_below="@+id/age"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -80,17 +80,18 @@
         android:text="Blood Type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bloodType"
+        android:id="@+id/text3"
         android:textSize="8pt"
-        android:layout_below="@+id/group1"
+        android:layout_below="@+id/gender"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/group1"
-        android:layout_below="@+id/gender">
+        android:id="@+id/gender"
+        android:layout_below="@+id/text"
+        >
 
         <RadioButton
             android:text="Male"
@@ -98,14 +99,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
             android:layout_marginStart="35dp"
-            android:id="@+id/rMale"
+            android:id="@+id/Male"
+            android:checked="true"
             />
 
         <RadioButton
             android:text="Female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rFemale"
+            android:id="@+id/Female"
             style="@android:style/Widget.CompoundButton.RadioButton"
             android:layout_marginLeft="35dp"
             android:layout_marginStart="35dp"
@@ -126,26 +128,28 @@
 
     <RadioGroup
         android:layout_height="match_parent"
-        android:id="@+id/group2"
+        android:id="@+id/bloodType"
         android:layout_width="match_parent"
-        android:layout_below="@+id/bloodType"
+        android:layout_below="@+id/text3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        >
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="A"
-            android:id="@+id/rAtype"
+            android:id="@+id/A"
             style="@android:style/Widget.CompoundButton.RadioButton"
             android:layout_marginLeft="35dp"
-            android:layout_marginStart="35dp" />
+            android:layout_marginStart="35dp"
+            android:checked="true"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="B"
-            android:id="@+id/rBtype"
+            android:id="@+id/B"
             style="@android:style/Widget.CompoundButton.RadioButton"
             android:layout_marginLeft="35dp"
             android:layout_marginStart="35dp"/>
@@ -154,7 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AB"
-            android:id="@+id/rABtype"
+            android:id="@+id/AB"
             style="@android:style/Widget.CompoundButton.RadioButton"
             android:layout_marginLeft="35dp"
             android:layout_marginStart="35dp"/>
@@ -162,7 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="O"
-            android:id="@+id/rOtype"
+            android:id="@+id/O"
             style="@android:style/Widget.CompoundButton.RadioButton"
             android:layout_marginLeft="35dp"
             android:layout_marginStart="35dp"/>
@@ -172,7 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/register"
-        android:layout_below="@id/group2"
+        android:layout_below="@id/bloodType"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -188,7 +192,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="onReg"/>
+        />
 
 </RelativeLayout>
 </ScrollView>

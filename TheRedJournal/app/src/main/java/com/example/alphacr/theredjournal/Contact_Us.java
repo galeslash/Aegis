@@ -1,27 +1,110 @@
 package com.example.alphacr.theredjournal;
 
+import android.app.ProgressDialog;
 import android.media.RemoteController;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Contact_Us extends AppCompatActivity {
-    EditText contact;
-    String str_contact;
+    private static final String TAG = Register.class.getSimpleName();
+    EditText contactUs;
+    private Button contact;
+    ProgressDialog progressDialog;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact__us);
-        contact= (EditText)findViewById(R.id.contactUs);
-    }
-    public void onConfirm(View view){
-        str_contact = contact.getText().toString();
-        String type = "contact";
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.execute(type, str_contact);
+        contactUs= (EditText)findViewById(R.id.contactUs);
+        contact = (Button) findViewById(R.id.contact);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+
+        contact.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                String contact = contactUs.getText().toString().trim();
+
+                if(!contact.isEmpty()){
+                    storeContact(contact);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Please fill your comment!", 
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        } );
 
 
+
     }
+    private void storeContact(final String contact){
+        String tag_string_req = "req_contact";
+        
+        progressDialog.setMessage("Submitting..");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_CONTACT_US, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Contact Response:" + response.toString());
+                hideDialog();
+                try{
+                    JSONObject jObj = new JSONObject(response);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Submit Error:" + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("contact", contact);
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void hideDialog() {
+        if (!progressDialog.isShowing()){
+            progressDialog.show();
+        }
+    }
+
+    private void showDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
 }
