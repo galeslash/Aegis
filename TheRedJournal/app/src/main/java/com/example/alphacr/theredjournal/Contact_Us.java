@@ -1,6 +1,7 @@
 package com.example.alphacr.theredjournal;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.media.RemoteController;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,6 +70,18 @@ public class Contact_Us extends AppCompatActivity {
                 hideDialog();
                 try{
                     JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error){
+                        String msg = jObj.getString("msg");
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(Contact_Us.this, HomePage.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        String errormsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(), errormsg, Toast.LENGTH_LONG).show();
+                    }
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -82,9 +95,9 @@ public class Contact_Us extends AppCompatActivity {
                 Log.e(TAG, "Submit Error:" + error.getMessage());
                 Toast.makeText(getApplicationContext(), error.getMessage(),
                         Toast.LENGTH_LONG).show();
+                hideDialog();
             }
-        }
-        ){
+        }){
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<String, String>();
