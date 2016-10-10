@@ -42,6 +42,7 @@ public class HomePage extends AppCompatActivity {
     public void contactUs(View view) {
 
         startActivity(new Intent(this, Contact_Us.class));
+        finish();
     }
     private  void logOutUser(){
     session.setLogin(false);

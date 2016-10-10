@@ -2,10 +2,10 @@ package com.example.alphacr.theredjournal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,14 +23,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.BlockingDeque;
 
 import helper.SQLITEHandler;
 import helper.SessionManager;
 
 public class Register extends AppCompatActivity {
     private static final String TAG = Register.class.getSimpleName();
-    private Button register;
+    private Button register, loginPage;
     private EditText fullName, eMail, password, age, phoneNumber;
     private RadioGroup gender, bloodType;
     private RadioButton selectGender, selectBlood;
@@ -51,6 +50,7 @@ public class Register extends AppCompatActivity {
         gender = (RadioGroup) findViewById(R.id.gender);
         bloodType = (RadioGroup) findViewById(R.id.bloodType);
         register = (Button) findViewById(R.id.register);
+        loginPage = (Button) findViewById(R.id.loginPage);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -64,6 +64,7 @@ public class Register extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 int selectedIdGender = gender.getCheckedRadioButtonId();
@@ -87,6 +88,15 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please fill in your details!",
                     Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        loginPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -163,7 +173,7 @@ public class Register extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 // Posting params to register url
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("fullName", name);
                 params.put("eMail", email);
                 params.put("password", password);
@@ -189,5 +199,25 @@ public class Register extends AppCompatActivity {
     private void hideDialog() {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Register.this, LoginActivity.class));
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

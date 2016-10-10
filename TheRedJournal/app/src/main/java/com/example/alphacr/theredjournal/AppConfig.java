@@ -2,6 +2,7 @@ package com.example.alphacr.theredjournal;
 
 /**
  * Created by Ucer on 10/8/2016.
+ * All links
  */
 
 public class AppConfig {

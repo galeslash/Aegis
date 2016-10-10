@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ScrollView01"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:paddingBottom="20dp">
 <RelativeLayout
     android:id="@+id/activity_register"
     android:layout_width="wrap_content"
@@ -114,6 +116,42 @@
             />
     </RadioGroup>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/fullName"
+        android:hint="Full Name"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
+
+    <Button
+        android:text="Go back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginPage"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/bloodType"
+        android:layout_marginLeft="45dp"
+
+        />
+
+    <Button
+        android:text="Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/register"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/loginPage"
+        android:layout_toEndOf="@+id/loginPage"
+        android:layout_marginLeft="5dp" />
+
     <TextView
         android:text="Register"
         android:layout_width="wrap_content"
@@ -122,9 +160,11 @@
         android:textSize="12pt"
         android:textStyle="italic"
         android:fontFamily="sans-serif"
+        android:layout_toLeftOf="@+id/register"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/register"
-        android:layout_alignStart="@+id/register" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="15dp"/>
 
     <RadioGroup
         android:layout_height="match_parent"
@@ -132,8 +172,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/text3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        >
+        android:layout_alignParentStart="true">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -171,28 +210,6 @@
             android:layout_marginLeft="35dp"
             android:layout_marginStart="35dp"/>
     </RadioGroup>
-    <Button
-        android:text="Register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/register"
-        android:layout_below="@id/bloodType"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/fullName"
-        android:hint="Full Name"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        />
 
 </RelativeLayout>
 </ScrollView>

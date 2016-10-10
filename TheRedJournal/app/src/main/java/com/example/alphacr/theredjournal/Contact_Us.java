@@ -3,9 +3,12 @@ package com.example.alphacr.theredjournal;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.RemoteController;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +36,7 @@ public class Contact_Us extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact__us);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         contactUs= (EditText)findViewById(R.id.contactUs);
         contact = (Button) findViewById(R.id.contact);
 
@@ -66,7 +70,7 @@ public class Contact_Us extends AppCompatActivity {
                 AppConfig.URL_CONTACT_US, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Contact Response:" + response.toString());
+                Log.d(TAG, "Contact Response:" + response);
                 hideDialog();
                 try{
                     JSONObject jObj = new JSONObject(response);
@@ -100,7 +104,7 @@ public class Contact_Us extends AppCompatActivity {
         }){
             @Override
             protected Map<String, String> getParams(){
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("contact", contact);
                 return params;
             }
@@ -119,5 +123,26 @@ public class Contact_Us extends AppCompatActivity {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
     }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(Contact_Us.this,HomePage.class));
+        finish();
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Intent intent = new Intent(this, HomePage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }
