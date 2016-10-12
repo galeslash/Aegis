@@ -84,7 +84,7 @@ public class Register extends AppCompatActivity {
                 String confirmPsw = confirmPassword.getText().toString().trim();
                 String rhesus = selectRhesus.getText().toString().trim();
 
-                if (rhesus.equals("plus")){
+                if (rhesus.equals("+ (Positive)")){
                     rhesus = "+";
                 }else {
                     rhesus = "-";
@@ -99,7 +99,7 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Password's length must be equal or"
                                 + " greater than six!", Toast.LENGTH_LONG).show();
                     }
-                    else if (psw !=confirmPsw){
+                    else if (!psw.equals(confirmPsw)){
                         Toast.makeText(getApplicationContext(), "First password and second password"
                                 + " do not match!", Toast.LENGTH_LONG).show();
                     }

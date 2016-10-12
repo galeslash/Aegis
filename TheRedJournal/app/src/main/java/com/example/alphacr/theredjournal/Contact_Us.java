@@ -25,12 +25,17 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import helper.SQLITEHandler;
+
 
 public class Contact_Us extends AppCompatActivity {
     private static final String TAG = Register.class.getSimpleName();
     EditText contactUs;
+    private String uid;
     private Button contact;
+    private SQLITEHandler db;
     ProgressDialog progressDialog;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +45,20 @@ public class Contact_Us extends AppCompatActivity {
         contactUs= (EditText)findViewById(R.id.contactUs);
         contact = (Button) findViewById(R.id.contact);
 
+        db = new SQLITEHandler(getApplicationContext());
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
+
+        HashMap<String, String> user = db.getUserDetails();
+        uid = user.get("uid");
 
         contact.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 String contact = contactUs.getText().toString().trim();
 
                 if(!contact.isEmpty()){
-                    storeContact(contact);
+                    storeContact(contact, uid);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Please fill your comment!", 
@@ -60,7 +70,7 @@ public class Contact_Us extends AppCompatActivity {
 
 
     }
-    private void storeContact(final String contact){
+    private void storeContact(final String contact,final String uid){
         String tag_string_req = "req_contact";
         
         progressDialog.setMessage("Submitting..");
@@ -105,6 +115,7 @@ public class Contact_Us extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
+                params.put("uid", uid);
                 params.put("contact", contact);
                 return params;
             }
