@@ -29,10 +29,10 @@ import helper.SessionManager;
 
 public class Register extends AppCompatActivity {
     private static final String TAG = Register.class.getSimpleName();
-    private Button register, loginPage;
-    private EditText fullName, eMail, password, age, phoneNumber;
-    private RadioGroup gender, bloodType;
-    private RadioButton selectGender, selectBlood;
+    private Button register;
+    private EditText fullName, eMail, password, age, phoneNumber, confirmPassword;
+    private RadioGroup gender, bloodType, rhesus;
+    private RadioButton selectGender, selectBlood, selectRhesus;
     private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLITEHandler db;
@@ -49,8 +49,15 @@ public class Register extends AppCompatActivity {
         phoneNumber = (EditText) findViewById(R.id.phoneNumber);
         gender = (RadioGroup) findViewById(R.id.gender);
         bloodType = (RadioGroup) findViewById(R.id.bloodType);
+        rhesus = (RadioGroup) findViewById(R.id.rhesus);
         register = (Button) findViewById(R.id.register);
-        loginPage = (Button) findViewById(R.id.loginPage);
+        confirmPassword = (EditText) findViewById(R.id.rePassword);
+        int selectedIdGender = gender.getCheckedRadioButtonId();
+        int selectedIdBlood = bloodType.getCheckedRadioButtonId();
+        int selectedRhesus = rhesus.getCheckedRadioButtonId();
+        selectBlood = (RadioButton) findViewById(selectedIdBlood);
+        selectGender = (RadioButton) findViewById(selectedIdGender);
+        selectRhesus = (RadioButton) findViewById(selectedRhesus);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -67,36 +74,43 @@ public class Register extends AppCompatActivity {
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
-                int selectedIdGender = gender.getCheckedRadioButtonId();
-                int selectedIdBlood = bloodType.getCheckedRadioButtonId();
-                selectBlood = (RadioButton) findViewById(selectedIdBlood);
-                selectGender = (RadioButton) findViewById(selectedIdGender);
                 String name = fullName.getText().toString().trim();
                 String email = eMail.getText().toString().trim();
                 String psw = password.getText().toString().trim();
                 String phonenumber = phoneNumber.getText().toString().trim();
                 String Age = age.getText().toString().trim();
                 String Gender = selectGender.getText().toString().trim();
-                String Blood = selectBlood.getText().toString().trim();
+                String blood = selectBlood.getText().toString().trim();
+                String confirmPsw = confirmPassword.getText().toString().trim();
+                String rhesus = selectRhesus.getText().toString().trim();
+
+                if (rhesus.equals("plus")){
+                    rhesus = "+";
+                }else {
+                    rhesus = "-";
+                }
+
+                String Blood = blood + rhesus;
 
                 if (!name.isEmpty() && !email.isEmpty() && !psw.isEmpty() &&
                         !phonenumber.isEmpty() && !Age.isEmpty() && !Gender.isEmpty() &&
                         !Blood.isEmpty()) {
-                    registerUser(name, email, psw, phonenumber, Gender, Blood, Age);
+                    if (psw.length()<=6){
+                        Toast.makeText(getApplicationContext(), "Password's length must be equal or"
+                                + " greater than six!", Toast.LENGTH_LONG).show();
+                    }
+                    else if (psw !=confirmPsw){
+                        Toast.makeText(getApplicationContext(), "First password and second password"
+                                + " do not match!", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        registerUser(name, email, psw, phonenumber, Gender, Blood, Age);
+                    }
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Please fill in your details!",
                     Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-
-        loginPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(i);
-                finish();
             }
         });
 
