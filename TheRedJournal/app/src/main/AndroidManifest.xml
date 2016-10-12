@@ -21,7 +21,8 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".UserProfile"></activity>
+        <activity
+            android:name=".UserProfile"/>
     </application>
 
 </manifest>
