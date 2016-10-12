@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:paddingBottom="50dp">
+    <RelativeLayout
+        android:id="@+id/activity_register"
+        android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.alphacr.theredjournal.Register"
+        android:layout_height="500dp">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:layout_below="@+id/eMail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/phoneNumber"
+        android:hint="Phone Number"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/eMail"
+        android:hint="E-mail"
+        android:layout_below="@+id/fullName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password"
+        android:hint="Password"
+        android:layout_below="@+id/phoneNumber"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text"
+        android:layout_below="@+id/age"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="8pt"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"/>
+
+        <TextView
+        android:text="Blood Type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text3"
+        android:textSize="8pt"
+        android:layout_below="@+id/gender"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:text="Rhesus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rhesustext"
+            android:textSize="8pt"
+            android:layout_below="@+id/bloodType"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gender"
+        android:layout_below="@+id/text"
+        >
+
+        <RadioButton
+            android:text="Male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            android:id="@+id/Male"
+            android:checked="true"
+            />
+
+        <RadioButton
+            android:text="Female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Female"
+            style="@android:style/Widget.CompoundButton.RadioButton"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            />
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/fullName"
+        android:hint="Full Name"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
+
+        <RadioGroup
+        android:layout_height="match_parent"
+        android:id="@+id/bloodType"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/text3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:id="@+id/A"
+            style="@android:style/Widget.CompoundButton.RadioButton"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            android:checked="true"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="B"
+            android:id="@+id/B"
+            style="@android:style/Widget.CompoundButton.RadioButton"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AB"
+            android:id="@+id/AB"
+            style="@android:style/Widget.CompoundButton.RadioButton"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="O"
+            android:id="@+id/O"
+            style="@android:style/Widget.CompoundButton.RadioButton"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"/>
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rhesus"
+            android:layout_below="@id/rhesustext"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ (Positive) "
+                android:id="@+id/plus"
+                style="@android:style/Widget.CompoundButton.RadioButton"
+                android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp"
+                android:checked="true"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- (Negative)"
+                android:id="@+id/minus"
+                style="@android:style/Widget.CompoundButton.RadioButton"
+                android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp"/>
+        </RadioGroup>
+
+        <Button
+            android:text="Register"
+            android:textColor="#ffffff"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/register"
+            android:layout_marginTop="14dp"
+            android:layout_below="@+id/rhesus"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:id="@+id/rePassword"
+            android:layout_below="@id/password"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/age"
+            android:hint="Age"
+            android:layout_below="@+id/rePassword"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:text="Register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textSize="12pt"
+            android:fontFamily="sans-serif"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/text3"
+            android:layout_toEndOf="@+id/text3"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="6dp"/>
+
+    </RelativeLayout>
+</ScrollView>
