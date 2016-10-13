@@ -13,18 +13,23 @@ public class HomePage extends AppCompatActivity {
 
 
     TextView factBox;
-    private Facts factHolder;
-    private Button button, guide;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Facts factHolder;
+        Button button;
+        Button guide;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        // Fact Coding
         factHolder = new Facts();
-
         factBox = (TextView) findViewById(R.id.trivia_content);
         factBox.setText(factHolder.nextFact());
 
+        // Button Listener
         button = (Button) findViewById(R.id.btDonor);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +45,4 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
-    //final textOne = (TextureView) findViewById(R.id.@+id/trivia_content);
-
-
-// Bikin Array
-    // Random dapetin index array
-    // Assign textview
-
-    //set on click listener
 }
