@@ -51,12 +51,23 @@
                 android:ems="10"
                 android:id="@+id/psw"
                 android:hint="Password"
-                android:layout_marginBottom="67dp"
+
                 android:layout_above="@+id/btnLogin"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
+            `
+
+            <TextView
+                android:text="Forgot Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/forgotPsw"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:textAlignment="center"
+                />
 
             <Button
                 android:layout_width="match_parent"
