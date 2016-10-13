@@ -1,8 +1,20 @@
 <resources>
+    <!-- Home Page -->
     <string name="app_name">TheRedJournal</string>
     <string name="donor">Donor</string>
     <string name="did_you_know">Did You Know?</string>
     <string name="how_to_donor">How to Donor?</string>
     <string name="trivia_content">"Ricky Arkan is the best programmer in the world, and he's totally cool and shit."</string>
-    <string name='log_out'>Log Out</string>
+    <string name= "log_out">Log Out</string>
+    <string name="contact_us">Contact Us</string>
+
+    <!-- Forgot Password -->
+    <string name="forgot">Forgot your password?</string>
+    <string name="forgot_help">Just enter your email address and we will help you get it back.</string>
+    <string name="email">Email</string>
+    <string name="send">Send</string>
+
+    <!-- Contact Us -->
+    <string name="type_here">type here..</string>
+    <string name="confirm">Confirm</string>
 </resources>

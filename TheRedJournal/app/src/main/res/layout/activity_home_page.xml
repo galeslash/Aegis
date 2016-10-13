@@ -12,25 +12,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
+    <!-- Need to clean up this code -->
     <Button
         android:text="@string/log_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:id="@+id/btnLogOut"
         />
 
     <Button
-        android:text="Contact Us"
+        android:text="@string/contact_us"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="26dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="103dp"
-        android:id="@+id/contact"
-        android:onClick="contactUs" />
+        android:id="@+id/contact" />
 
-    <!-- Soft code this shit -->
+
 
     <LinearLayout
             android:orientation="horizontal"

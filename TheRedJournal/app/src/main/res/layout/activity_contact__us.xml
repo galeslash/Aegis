@@ -11,7 +11,7 @@
     tools:context="com.example.alphacr.theredjournal.Contact_Us">
 
     <TextView
-        android:text="Contact Us"
+        android:text="@string/contact_us"
         android:textSize="30sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:hint="type here.."
+        android:hint="@string/type_here"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -34,15 +34,13 @@
         />
 
     <Button
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contactUs"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="35dp"
-        android:id="@+id/contact"
-        android:onClick="onConfirm"/>
-
+        android:id="@+id/contact" />
 
 </RelativeLayout>

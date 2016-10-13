@@ -33,6 +33,7 @@ public class HomePage extends AppCompatActivity {
         Button button;
         Button guide;
         Button btnLogOut;
+        Button contactUs;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -57,36 +58,32 @@ public class HomePage extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "How to Donor is pressed", Toast.LENGTH_SHORT).show();
             }
         });
-
-        contactForm = (EditText) findViewById(R.id.contactUs);
-
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
-
         db = new SQLITEHandler(getApplicationContext());
-
         session = new SessionManager(getApplicationContext());
-
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logOutUser();
             }
         });
-
+        contactUs = (Button) findViewById(R.id.contact);
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (HomePage.this, Contact_Us.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
-    public void contactUs(View view) {
-
-        startActivity(new Intent(this, Contact_Us.class));
+    private void logOutUser(){
+        session.setLogin(false);
+        db.deleteUsers();
+        Intent intent = new Intent (HomePage.this, LoginActivity.class);
+        startActivity(intent);
         finish();
-    }
-    private  void logOutUser(){
-    session.setLogin(false);
-    db.deleteUsers();
-
-    Intent intent = new Intent (HomePage.this, LoginActivity.class);
-    startActivity(intent);
-    finish();
     }
 }
