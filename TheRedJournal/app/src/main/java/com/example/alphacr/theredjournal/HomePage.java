@@ -57,7 +57,9 @@ public class HomePage extends AppCompatActivity {
         guide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "How to Donor is pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (HomePage.this, DonorsGuide.class);
+                startActivity(intent);
+                finish();
             }
         });
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
@@ -87,6 +89,7 @@ public class HomePage extends AppCompatActivity {
                 finish();
             }
         });
+
 
     }
 

@@ -15,6 +15,55 @@
     <string name="email">Email</string>
     <string name="send">Send</string>
 
+    <!-- Donors Guide Wall of Text -->
+
+    <string name="guide">
+        <![CDATA[
+        <h1><strong>Before donating, please read this guide.</strong></h1>
+        <h2>What are the requirements to become a donor?</h2>
+        <p>1. In a healthy condition<br />
+        2. Is between 17 and 65 years old <br />
+        3. Weigh at least 45 kilograms<br />
+        4. Blood pressure requirements:<br />
+        - sistole 100 - 170<br />
+        - diastole 70 - 100<br />
+        5. Haemoglobin value above 12.5g/dl<br />
+        6. Last donated blood 12 weeks or 3 months ago.</p>
+
+        <h2><strong>You are not eligible to donate blood if you either:</strong></h2>
+        <p>- suffer from heart and lung diseases<br />
+        - have cancer<br />
+        - suffer from hypertension<br />
+        - suffer from diabetes<br />
+        - have tendencies of abnormal bleeding or other blood anomalies<br />
+        - suffer from epilepsy or seizures<br />
+        - have a history of Hepatitis B or C<br />
+        - suffer from syphilis<br />
+        - have drug addiction<br />
+        - have alcohol addiction<br />
+        - suffer from HIV/AIDS<br />
+        - belongs to a group identified at high risk for HIV/AIDS<br />
+        - do not have permission from your doctor to donate blood</p>
+        <h2>You may have to delay your blood donation under certain conditions:</h2>
+        <p>- Suffering from Fever/Influenza (A week after recovery)<br />
+        - After tooth extraction (5 days after recovery)<br />
+        - After minor body operation (6 months)<br />
+        - After major body operation (12 months)<br />
+        - After blood transfusion (12 months)<br />
+        - After tattoo/piercing application or transplantation (12 months)<br />
+        - After close contact with Hepatitis patient (12 months)<br />
+        - During pregnancy (6 months after delivery)<br />
+        - During breastfeeding (3 months after final breastfeeding)<br />
+        - Suffering from malaria (3 years after free from symptoms)<br />
+        - After coming home from malaria-endemic region (12 months)<br />
+        - After living in malaria-endemic region for five years (5 years after departing)<br />
+        - Suffering from typhus/typhoid (6 months after recovery)<br />
+        - After vaccination (6 weeks)<br />
+        - After allergy symptoms (A week after recovery)<br />
+        - After skin infection on area to be pierced by the needle (1 week after recovery)</p>
+                    ]]>
+    </string>
+
     <!-- Contact Us -->
     <string name="type_here">type here..</string>
     <string name="confirm">Confirm</string>
