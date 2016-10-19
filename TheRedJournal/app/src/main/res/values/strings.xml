@@ -1,6 +1,6 @@
 <resources>
     <!-- Home Page -->
-    <string name="app_name">TheRedJournal</string>
+    <string name="app_name">The Red Journal</string>
     <string name="donor">Donor</string>
     <string name="did_you_know">Did You Know?</string>
     <string name="how_to_donor">How to Donor?</string>
@@ -16,7 +16,6 @@
     <string name="send">Send</string>
 
     <!-- Donors Guide Wall of Text -->
-
     <string name="guide">
         <![CDATA[
         <h1><strong>Before donating, please read this guide.</strong></h1>
@@ -67,5 +66,9 @@
     <!-- Contact Us -->
     <string name="type_here">type here..</string>
     <string name="confirm">Confirm</string>
+
+
+    <!-- Register -->
+    <string name="register">Register</string>
 
 </resources>
