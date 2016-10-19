@@ -16,7 +16,6 @@
     <string name="send">Send</string>
 
     <!-- Donors Guide Wall of Text -->
-
     <string name="guide">
         <![CDATA[
         <h1><strong>Before donating, please read this guide.</strong></h1>
