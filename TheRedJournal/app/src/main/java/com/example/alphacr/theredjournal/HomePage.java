@@ -61,7 +61,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
         // Logout
-        btnLogOut = (Button) findViewById(R.id.action_logout);
+        btnLogOut = (Button) findViewById(R.id.btnLogOut);
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
         btnLogOut.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +71,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
         // Contact Us
-        contactUs = (Button) findViewById(R.id.action_contact_us);
+        contactUs = (Button) findViewById(R.id.contact);
         contactUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
