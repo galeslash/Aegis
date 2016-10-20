@@ -3,7 +3,7 @@
     package="com.example.alphacr.theredjournal">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    "
+
     <application
         android:name=".AppController"
         android:allowBackup="true"
@@ -11,6 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- Login Activity -->
         <activity
             android:name=".LoginActivity"
             android:label="The Red Journal"
@@ -21,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Contact Us -->
         <activity
             android:name=".Contact_Us"
             android:label="Contact Us"
@@ -29,13 +33,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
         </activity>
+
+        <!-- Home Page -->
         <activity
             android:name=".HomePage"
             android:label="The Red Journal"
             android:launchMode="singleTop" />
+
+        <!-- Register -->
         <activity
             android:name=".Register"
-            android:label="Register"
+            android:label="@string/register"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -43,6 +51,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+
+        <!-- Forgot Password -->
         <activity android:name=".ForgotPassword"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
@@ -51,6 +61,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+
         <activity android:name=".ChangePassword" />
         <activity
             android:name=".DonorsGuide"
@@ -60,6 +71,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
         </activity>
+
     </application>
 
 </manifest>
