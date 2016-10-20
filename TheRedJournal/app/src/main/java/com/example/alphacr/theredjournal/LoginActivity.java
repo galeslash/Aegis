@@ -2,12 +2,14 @@ package com.example.alphacr.theredjournal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,15 +36,35 @@ public class LoginActivity extends AppCompatActivity {
     private SessionManager session;
     private SQLITEHandler db;
     private Button onRegister;
+    private TextView title, onForgotPsw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+        Typeface customFont2 = Typeface.createFromAsset(getAssets(), "fonts/OSP-DIN.ttf");
+
+        title = (TextView) findViewById(R.id.appTitle);
+        title.setTypeface(customFont2);
+
         inputEmail = (EditText) findViewById(R.id.eMail);
+        inputEmail.setTypeface(customFont);
+
         inputPassword = (EditText) findViewById(R.id.psw);
+        inputPassword.setTypeface(customFont);
+
+        onForgotPsw = (TextView) findViewById(R.id.forgotPsw);
+        onForgotPsw.setTypeface(customFont);
+
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin.setTypeface(customFont);
+
         onRegister = (Button) findViewById(R.id.onRegister);
+        onRegister.setTypeface(customFont);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
 
