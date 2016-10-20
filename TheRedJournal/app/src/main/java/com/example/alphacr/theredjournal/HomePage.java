@@ -69,7 +69,7 @@ public class HomePage extends AppCompatActivity {
         // Nanya isaac ini apa
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
-        
+
         Password = (Button) findViewById(R.id.changePassword);
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
