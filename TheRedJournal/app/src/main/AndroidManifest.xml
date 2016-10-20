@@ -78,7 +78,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
         </activity>
-
     </application>
 
 </manifest>
