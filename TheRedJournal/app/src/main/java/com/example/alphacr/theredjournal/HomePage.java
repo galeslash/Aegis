@@ -6,6 +6,7 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.TextureView;
 import android.view.View;
@@ -64,26 +65,11 @@ public class HomePage extends AppCompatActivity {
                 finish();
             }
         });
-        // Logout
-        btnLogOut = (Button) findViewById(R.id.btnLogOut);
+
+        // Nanya isaac ini apa
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOutUser();
-            }
-        });
-        // Contact Us
-        contactUs = (Button) findViewById(R.id.contact);
-        contactUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, Contact_Us.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
         changePassword = (Button) findViewById(R.id.changePassword);
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,13 +81,15 @@ public class HomePage extends AppCompatActivity {
         });
 
 
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -111,10 +99,18 @@ public class HomePage extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // noinspection SimplifiableIfStatement
+            // Logout
         if (id == R.id.action_logout){
+            Toast.makeText(getApplicationContext(), "Logout option selected", Toast.LENGTH_LONG).show();
+            logOutUser();
             return true;
+            // Contact Us
         } else if (id == R.id.action_contact_us) {
+            Toast.makeText(getApplicationContext(), "Contact Us option selected", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent (HomePage.this, Contact_Us.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 
