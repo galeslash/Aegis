@@ -68,7 +68,6 @@ public class Contact_Us extends AppCompatActivity {
         } );
 
 
-
     }
     private void storeContact(final String contact,final String uid){
         String tag_string_req = "req_contact";
@@ -99,6 +98,7 @@ public class Contact_Us extends AppCompatActivity {
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }

@@ -34,6 +34,7 @@ public class HomePage extends AppCompatActivity {
         Button guide;
         Button btnLogOut;
         Button contactUs;
+        Button changePassword;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -72,6 +73,15 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (HomePage.this, Contact_Us.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        changePassword = (Button) findViewById(R.id.changePassword);
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePage.this, ChangePassword.class);
                 startActivity(intent);
                 finish();
             }
