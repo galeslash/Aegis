@@ -3,20 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_logout"
-<<<<<<< 653566f576577c848c805ebe47bebcd00d997619
         android:title="@string/log_out"
-=======
-        android:title="Logout"
->>>>>>> Action Bar
         android:orderInCategory="100"
         app:showAsAction = "never"/>
 
     <item android:id="@+id/action_contact_us"
-<<<<<<< 653566f576577c848c805ebe47bebcd00d997619
         android:title="@string/contact_us"
-=======
-        android:title="Contact Us"
->>>>>>> Action Bar
         android:orderInCategory="100"
         app:showAsAction = "never"/>
 

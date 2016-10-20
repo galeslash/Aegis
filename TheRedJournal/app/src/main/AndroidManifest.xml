@@ -44,6 +44,10 @@
         <activity
             android:name=".Register"
             android:label="@string/register"
+<<<<<<< a385929d01844d19da54fc6c0f65455a12873ee6
+=======
+
+>>>>>>> Cleaned up some codes and removed the action bar on login
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -72,6 +76,12 @@
                 android:value=".HomePage" />
         </activity>
 
+<<<<<<< a385929d01844d19da54fc6c0f65455a12873ee6
+=======
+        <!-- Forgot Password -->
+        <activity android:name=".ForgotPassword" />
+        <activity android:name=".ChangePassword" />
+>>>>>>> Cleaned up some codes and removed the action bar on login
     </application>
 
 </manifest>
