@@ -44,7 +44,6 @@
         <activity
             android:name=".Register"
             android:label="@string/register"
-
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -52,6 +51,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+
+        <!-- Forgot Password -->
         <activity android:name=".ForgotPassword"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
@@ -71,9 +72,6 @@
                 android:value=".HomePage" />
         </activity>
 
-        <!-- Forgot Password -->
-        <activity android:name=".ForgotPassword" />
-        <activity android:name=".ChangePassword" />
     </application>
 
 </manifest>
