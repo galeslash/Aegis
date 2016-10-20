@@ -12,16 +12,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-<<<<<<< 653566f576577c848c805ebe47bebcd00d997619
-=======
-
     <Button
         android:text = "@string/change_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/changePassword"/>
 
->>>>>>> Action Bar
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
