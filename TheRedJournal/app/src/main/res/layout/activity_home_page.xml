@@ -12,22 +12,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-    <!-- Buttons that needs to be put on the action bar -->
-    <Button
-        android:text="@string/log_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLogOut"
-        />
-
-    <Button
-        android:text="@string/contact_us"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/contact" />
-
-
-
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
