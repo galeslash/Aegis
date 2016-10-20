@@ -65,12 +65,44 @@ public class HomePage extends AppCompatActivity {
                 finish();
             }
         });
+<<<<<<< HEAD
+<<<<<<< HEAD
 
         // Nanya isaac ini apa
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
 
+=======
+        // Logout
+        btnLogOut = (Button) findViewById(R.id.btnLogOut);
+        db = new SQLITEHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOutUser();
+            }
+        });
+        // Contact Us
+        contactUs = (Button) findViewById(R.id.contact);
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePage.this, Contact_Us.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+>>>>>>> 572dbe5... Action Bar
         changePassword = (Button) findViewById(R.id.changePassword);
+=======
+
+        // Nanya isaac ini apa
+        db = new SQLITEHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+        
+        Password = (Button) findViewById(R.id.changePassword);
+>>>>>>> b76b389... Added action bar
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +111,10 @@ public class HomePage extends AppCompatActivity {
                 finish();
             }
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> b76b389... Added action bar
     }
 
     @Override
