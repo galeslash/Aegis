@@ -14,20 +14,11 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="154dp"
+        android:layout_height="140dp"
         android:weightSum="1"
-        android:background="@android:color/holo_red_dark"
-        android:gravity="top">
-
-        <ImageButton
-            android:layout_width="55dp"
-            android:layout_height="66dp"
-            app:srcCompat="@drawable/logocropwhite"
-            android:id="@+id/logo"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            android:scaleType="fitXY"
-            android:background="@android:color/holo_red_dark" />
+        android:background="#E14441"
+        android:gravity="top"
+        android:id="@+id/profContainer">
 
         <TextView
             android:text="Username"
@@ -42,16 +33,6 @@
             android:layout_weight="0.95"
             android:layout_gravity="center"
             android:textColor="@android:color/background_light" />
-
-        <ImageButton
-            android:layout_width="55dp"
-            android:layout_height="64dp"
-            app:srcCompat="@drawable/notifbellwhite"
-            android:id="@+id/notifButton"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            android:scaleType="fitXY"
-            android:background="@android:color/holo_red_dark" />
 
     </LinearLayout>
 
