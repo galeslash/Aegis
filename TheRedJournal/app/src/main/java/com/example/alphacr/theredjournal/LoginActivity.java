@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,13 +28,11 @@ import helper.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = Register.class.getSimpleName();
-    private Button btnLogin;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLITEHandler db;
-    private Button onRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         inputEmail = (EditText) findViewById(R.id.eMail);
         inputPassword = (EditText) findViewById(R.id.psw);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        onRegister = (Button) findViewById(R.id.onRegister);
+        Button btnLogin = (Button) findViewById(R.id.btnLogin);
+        Button onRegister = (Button) findViewById(R.id.onRegister);
+        TextView forgotPsw = (TextView) findViewById(R.id.forgotPsw);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
 
@@ -76,12 +76,23 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
          });
+        // Register button event
         onRegister.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
                         Register.class);
                 startActivity(i);
+                finish();
+
+            }
+        });
+        //Forgot Password button event
+        forgotPsw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
+                startActivity(intent);
                 finish();
             }
         });

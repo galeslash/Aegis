@@ -95,7 +95,7 @@ public class Register extends AppCompatActivity {
                 if (!name.isEmpty() && !email.isEmpty() && !psw.isEmpty() &&
                         !phonenumber.isEmpty() && !Age.isEmpty() && !Gender.isEmpty() &&
                         !Blood.isEmpty()) {
-                    if (psw.length()<=6){
+                    if (psw.length()<6){
                         Toast.makeText(getApplicationContext(), "Password's length must be equal or"
                                 + " greater than six!", Toast.LENGTH_LONG).show();
                     }
@@ -170,6 +170,7 @@ public class Register extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
