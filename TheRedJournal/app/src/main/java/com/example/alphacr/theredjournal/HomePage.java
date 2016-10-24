@@ -99,12 +99,10 @@ public class HomePage extends AppCompatActivity {
         // noinspection SimplifiableIfStatement
             // Logout
         if (id == R.id.action_logout){
-            Toast.makeText(getApplicationContext(), "Logout option selected", Toast.LENGTH_LONG).show();
             logOutUser();
             return true;
             // Contact Us
         } else if (id == R.id.action_contact_us) {
-            Toast.makeText(getApplicationContext(), "Contact Us option selected", Toast.LENGTH_LONG).show();
             Intent intent = new Intent (HomePage.this, Contact_Us.class);
             startActivity(intent);
             finish();

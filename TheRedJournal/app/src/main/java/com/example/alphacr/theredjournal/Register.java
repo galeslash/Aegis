@@ -46,8 +46,6 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
-        title = (TextView) findViewById(R.id.titleText);
-        title.setTypeface(customFont);
 
         fullName = (EditText) findViewById(R.id.fullName);
         fullName.setTypeface(customFont);

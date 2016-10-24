@@ -54,6 +54,7 @@
 
         <!-- Forgot Password -->
         <activity android:name=".ForgotPassword"
+            android:label="Forgot Password"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -62,7 +63,13 @@
                 android:value=".LoginActivity" />
         </activity>
 
-        <activity android:name=".ChangePassword" />
+        <activity android:name=".ChangePassword"
+            android:label="Change Password"
+            android:parentActivityName=".HomePage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomePage" />
+        </activity>
         <activity
             android:name=".DonorsGuide"
             android:label="New Donor's Guide"
