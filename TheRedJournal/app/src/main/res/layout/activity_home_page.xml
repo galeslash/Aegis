@@ -12,23 +12,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-
-    <!-- Need to clean up this code -->
     <Button
-        android:text="@string/log_out"
+        android:text = "@string/change_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnLogOut"
-        />
-
-    <Button
-        android:text="@string/contact_us"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:id="@+id/contact" />
-
-
+        android:id="@+id/changePassword"/>
 
     <LinearLayout
             android:orientation="horizontal"
@@ -129,3 +117,4 @@
         </LinearLayout>
 
     </LinearLayout>
+

@@ -12,7 +12,7 @@ public class Facts {
             "Chocolate syrup was used for the blood in the famous shower scene in the 1960 Alfred Hitchcock movie 'Psycho'",
             "The juice of purple grapes seems to have similar effects in inhibiting blood clots and therefore heart attacks",
             "Everyone has a blood type. O is the most common of the four blood types.  AB is the rarest",
-            "There are subgroups of the 4 major blood types that are rarer still.  There is a blood type A-H.  Only three people are known to have this type",
+            "There is a blood type A-H. Only three people are known to have this type",
             "Cats also have 4 different blood groups.  Cows have over 800",
             "Mr. Spock on Star Trek was said to have T-negative blood",
             "Most people who are at least 17 years old, weigh at least 110 pounds and are in good health can donate blood",

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        getSupportActionBar().hide(); // Make the title.... DISAPPEAR!
         setContentView(R.layout.activity_login);
 
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
@@ -54,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail.setTypeface(customFont);
 
         inputPassword = (EditText) findViewById(R.id.psw);
+        Button btnLogin = (Button) findViewById(R.id.btnLogin);
+        Button onRegister = (Button) findViewById(R.id.onRegister);
+        TextView forgotPsw = (TextView) findViewById(R.id.forgotPsw);
         inputPassword.setTypeface(customFont);
 
         onForgotPsw = (TextView) findViewById(R.id.forgotPsw);
@@ -98,12 +102,23 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
          });
+        // Register button event
         onRegister.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
                         Register.class);
                 startActivity(i);
+                finish();
+
+            }
+        });
+        //Forgot Password button event
+        forgotPsw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
+                startActivity(intent);
                 finish();
             }
         });
