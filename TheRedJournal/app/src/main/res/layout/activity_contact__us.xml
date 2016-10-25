@@ -10,29 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.alphacr.theredjournal.Contact_Us">
 
-    <TextView
-        android:text="@string/contact_us"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:hint="@string/type_here"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="38dp"
-        android:id="@+id/contactUs"
-        />
-
     <Button
         android:text="@string/confirm"
         android:layout_width="wrap_content"
@@ -42,5 +19,16 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="35dp"
         android:id="@+id/contact" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:hint="@string/type_here"
+        android:id="@+id/contactUs"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
