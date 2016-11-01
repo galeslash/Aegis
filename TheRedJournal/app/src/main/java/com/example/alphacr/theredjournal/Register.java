@@ -2,6 +2,7 @@ package com.example.alphacr.theredjournal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,22 +38,48 @@ public class Register extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLITEHandler db;
+    private TextView title, Gender, Bloodtype, Rhesus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+
         fullName = (EditText) findViewById(R.id.fullName);
+        fullName.setTypeface(customFont);
+
         eMail = (EditText) findViewById(R.id.eMail);
+        eMail.setTypeface(customFont);
+
         password = (EditText) findViewById(R.id.password);
+        password.setTypeface(customFont);
+
         age = (EditText) findViewById(R.id.age);
+        age.setTypeface(customFont);
+
         phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        phoneNumber.setTypeface(customFont);
+
+        Gender = (TextView) findViewById(R.id.text);
+        Gender.setTypeface(customFont);
         gender = (RadioGroup) findViewById(R.id.gender);
+
         bloodType = (RadioGroup) findViewById(R.id.bloodType);
+        Bloodtype = (TextView) findViewById(R.id.text3);
+        Bloodtype.setTypeface(customFont);
+
         rhesus = (RadioGroup) findViewById(R.id.rhesus);
+        Rhesus = (TextView) findViewById(R.id.rhesustext);
+        Rhesus.setTypeface(customFont);
+
         register = (Button) findViewById(R.id.register);
+        register.setTypeface(customFont);
+
         confirmPassword = (EditText) findViewById(R.id.rePassword);
+        confirmPassword.setTypeface(customFont);
+
         int selectedIdGender = gender.getCheckedRadioButtonId();
         int selectedIdBlood = bloodType.getCheckedRadioButtonId();
         int selectedRhesus = rhesus.getCheckedRadioButtonId();

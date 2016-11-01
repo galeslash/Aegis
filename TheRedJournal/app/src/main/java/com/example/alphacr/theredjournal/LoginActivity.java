@@ -2,6 +2,7 @@ package com.example.alphacr.theredjournal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,22 +30,45 @@ import helper.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = Register.class.getSimpleName();
+    private Button btnLogin;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLITEHandler db;
+    private Button onRegister;
+    private TextView title, onForgotPsw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide(); // Make the title.... DISAPPEAR!
         setContentView(R.layout.activity_login);
+
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+        Typeface customFont2 = Typeface.createFromAsset(getAssets(), "fonts/OSP-DIN.ttf");
+
+        title = (TextView) findViewById(R.id.appTitle);
+        title.setTypeface(customFont2);
+
         inputEmail = (EditText) findViewById(R.id.eMail);
+        inputEmail.setTypeface(customFont);
+
         inputPassword = (EditText) findViewById(R.id.psw);
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         Button onRegister = (Button) findViewById(R.id.onRegister);
         TextView forgotPsw = (TextView) findViewById(R.id.forgotPsw);
+        inputPassword.setTypeface(customFont);
+
+        onForgotPsw = (TextView) findViewById(R.id.forgotPsw);
+        onForgotPsw.setTypeface(customFont);
+
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin.setTypeface(customFont);
+
+        onRegister = (Button) findViewById(R.id.onRegister);
+        onRegister.setTypeface(customFont);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
 
