@@ -78,7 +78,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
         </activity>
-
+        <activity android:name=".UserProfile" />
+        <activity android:name=".EditProfile"></activity>
     </application>
 
 </manifest>
