@@ -30,13 +30,11 @@ import helper.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = Register.class.getSimpleName();
-    private Button btnLogin;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLITEHandler db;
-    private Button onRegister;
     private TextView title, onForgotPsw;
 
     @Override
@@ -55,18 +53,16 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail.setTypeface(customFont);
 
         inputPassword = (EditText) findViewById(R.id.psw);
-        Button btnLogin = (Button) findViewById(R.id.btnLogin);
-        Button onRegister = (Button) findViewById(R.id.onRegister);
         TextView forgotPsw = (TextView) findViewById(R.id.forgotPsw);
         inputPassword.setTypeface(customFont);
 
         onForgotPsw = (TextView) findViewById(R.id.forgotPsw);
         onForgotPsw.setTypeface(customFont);
 
-        btnLogin = (Button) findViewById(R.id.btnLogin);
+        Button btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setTypeface(customFont);
 
-        onRegister = (Button) findViewById(R.id.onRegister);
+        Button onRegister = (Button) findViewById(R.id.onRegister);
         onRegister.setTypeface(customFont);
 
         progressDialog = new ProgressDialog(this);
@@ -154,14 +150,14 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("fullName");
                         String email = user.getString("eMail");
-                        int age = user.getInt("age");
+                        String dateOfBirth = user.getString("dateOfBirth");
                         int phonenumber = user.getInt("phoneNumber");
                         String bloodType = user.getString("bloodType");
                         String gender = user.getString("gender");
 
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, age, bloodType, phonenumber, gender);
+                        db.addUser(name, email, uid, dateOfBirth, bloodType, phonenumber, gender);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,

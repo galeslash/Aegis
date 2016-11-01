@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text"
-        android:layout_below="@+id/age"
+        android:layout_below="@+id/dateOfBirth"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="8pt"
@@ -126,7 +126,6 @@
         android:ems="10"
         android:id="@+id/fullName"
         android:hint="Full Name"
-        android:layout_below="@+id/titleText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -233,15 +232,15 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="phone"
             android:ems="10"
-            android:id="@+id/age"
-            android:hint="Age"
+            android:id="@+id/dateOfBirth"
+            android:hint="Date of Birth"
             android:layout_below="@+id/rePassword"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:focusable="false"/>
 
     </RelativeLayout>
 </ScrollView>

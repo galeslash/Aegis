@@ -32,7 +32,7 @@ public class SQLITEHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "fullName";
     private static final String KEY_EMAIL = "eMail";
     private static final String KEY_UID = "uid";
-    private static final String KEY_AGE = "age";
+    private static final String KEY_DATE_OF_BIRTH = "dateOfBirth";
     private static final String KEY_BLOODTYPE = "bloodType";
     private static final String KEY_PHONENUMBER = "phoneNumber";
     private static final String KEY_GENDER = "GENDER";
@@ -48,7 +48,7 @@ public class SQLITEHandler extends SQLiteOpenHelper {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + USER_PROFILE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
-                + KEY_AGE + " INT ," + KEY_BLOODTYPE + " TEXT , "
+                + KEY_DATE_OF_BIRTH + " DATE ," + KEY_BLOODTYPE + " TEXT , "
                 + KEY_PHONENUMBER + " INT ," +
                   KEY_GENDER + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
@@ -69,14 +69,14 @@ public class SQLITEHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String fullName, String eMail, String uid, int age, String bloodType, int phoneNumber , String Gender) {
+    public void addUser(String fullName, String eMail, String uid, String dateOfBirth, String bloodType, int phoneNumber , String Gender) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, fullName); // Name
         values.put(KEY_EMAIL, eMail); // Email
         values.put(KEY_UID, uid); // uid
-        values.put(KEY_AGE, age); // age
+        values.put(KEY_DATE_OF_BIRTH, dateOfBirth); // age
         values.put(KEY_BLOODTYPE, bloodType);
         values.put(KEY_PHONENUMBER, phoneNumber);
         values.put(KEY_GENDER, Gender);

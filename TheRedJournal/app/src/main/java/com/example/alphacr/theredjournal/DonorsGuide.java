@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 
@@ -21,5 +22,18 @@ public class DonorsGuide extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(DonorsGuide.this, HomePage.class));
         finish();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            // Respond to the action bar's up/home button
+            case android.R.id.home:
+                Intent intent  = new Intent(this, HomePage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
