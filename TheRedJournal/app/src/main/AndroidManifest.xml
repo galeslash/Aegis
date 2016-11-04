@@ -3,6 +3,10 @@
     package="com.example.alphacr.theredjournal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".AppController"
@@ -78,8 +82,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
         </activity>
-        <activity android:name=".UserProfile" />
-        <activity android:name=".EditProfile"></activity>
+        <activity
+            android:name=".UserProfile"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:name=".EditProfile" />
     </application>
 
 </manifest>

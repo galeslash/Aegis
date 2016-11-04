@@ -1,5 +1,6 @@
 package com.example.alphacr.theredjournal;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,13 +35,14 @@ import helper.SessionManager;
 public class Register extends AppCompatActivity {
     private static final String TAG = Register.class.getSimpleName();
     private Button register;
-    private EditText fullName, eMail, password, age, phoneNumber, confirmPassword;
+    private EditText fullName, eMail, password, date, phoneNumber, confirmPassword;
     private RadioGroup gender, bloodType, rhesus;
     private RadioButton selectGender, selectBlood, selectRhesus;
     private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLITEHandler db;
     private TextView title, Gender, Bloodtype, Rhesus;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,8 @@ public class Register extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         password.setTypeface(customFont);
 
-        age = (EditText) findViewById(R.id.age);
-        age.setTypeface(customFont);
+        date = (EditText) findViewById(R.id.dateOfBirth);
+        date.setTypeface(customFont);
 
         phoneNumber = (EditText) findViewById(R.id.phoneNumber);
         phoneNumber.setTypeface(customFont);
@@ -80,12 +84,24 @@ public class Register extends AppCompatActivity {
         confirmPassword = (EditText) findViewById(R.id.rePassword);
         confirmPassword.setTypeface(customFont);
 
-        int selectedIdGender = gender.getCheckedRadioButtonId();
-        int selectedIdBlood = bloodType.getCheckedRadioButtonId();
-        int selectedRhesus = rhesus.getCheckedRadioButtonId();
-        selectBlood = (RadioButton) findViewById(selectedIdBlood);
-        selectGender = (RadioButton) findViewById(selectedIdGender);
-        selectRhesus = (RadioButton) findViewById(selectedRhesus);
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(Register.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        date.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -102,11 +118,18 @@ public class Register extends AppCompatActivity {
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
+                int selectedIdGender = gender.getCheckedRadioButtonId();
+                int selectedIdBlood = bloodType.getCheckedRadioButtonId();
+                int selectedRhesus = rhesus.getCheckedRadioButtonId();
+                selectBlood = (RadioButton) findViewById(selectedIdBlood);
+                selectGender = (RadioButton) findViewById(selectedIdGender);
+                selectRhesus = (RadioButton) findViewById(selectedRhesus);
+
                 String name = fullName.getText().toString().trim();
                 String email = eMail.getText().toString().trim();
                 String psw = password.getText().toString().trim();
                 String phonenumber = phoneNumber.getText().toString().trim();
-                String Age = age.getText().toString().trim();
+                String dateOfBirth = date.getText().toString().trim();
                 String Gender = selectGender.getText().toString().trim();
                 String blood = selectBlood.getText().toString().trim();
                 String confirmPsw = confirmPassword.getText().toString().trim();
@@ -121,7 +144,7 @@ public class Register extends AppCompatActivity {
                 String Blood = blood + rhesus;
 
                 if (!name.isEmpty() && !email.isEmpty() && !psw.isEmpty() &&
-                        !phonenumber.isEmpty() && !Age.isEmpty() && !Gender.isEmpty() &&
+                        !phonenumber.isEmpty() && !dateOfBirth.isEmpty() && !Gender.isEmpty() &&
                         !Blood.isEmpty()) {
                     if (psw.length()<6){
                         Toast.makeText(getApplicationContext(), "Password's length must be equal or"
@@ -132,7 +155,7 @@ public class Register extends AppCompatActivity {
                                 + " do not match!", Toast.LENGTH_LONG).show();
                     }
                     else {
-                        registerUser(name, email, psw, phonenumber, Gender, Blood, Age);
+                        registerUser(name, email, psw, phonenumber, Gender, Blood, dateOfBirth);
                     }
                 }
                 else{
@@ -145,7 +168,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void registerUser(final String name, final String email,
-                              final String password, final String phonenumber, final String Gender, final String Blood, final String Age) {
+                              final String password, final String phonenumber, final String Gender, final String Blood, final String Date) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -171,14 +194,15 @@ public class Register extends AppCompatActivity {
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("fullName");
                         String email = user.getString("eMail");
-                        int age = user.getInt("age");
-                        int phonenumber = user.getInt("phoneNumber");
+                        String dateOfBirth = user.getString("dateOfBirth");
+                        String phonenumber = user.getString("phoneNumber");
                         String bloodType = user.getString("bloodType");
                         String Gender = user.getString("gender");
+                        String image = null;
 
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, age, bloodType, phonenumber, Gender );
+                        db.addUser(name, email, uid, dateOfBirth, bloodType, phonenumber, Gender, image );
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
@@ -220,7 +244,7 @@ public class Register extends AppCompatActivity {
                 params.put("fullName", name);
                 params.put("eMail", email);
                 params.put("password", password);
-                params.put("age", Age);
+                params.put("dateOfBirth", Date);
                 params.put("phoneNumber", phonenumber);
                 params.put("gender", Gender);
                 params.put("bloodType", Blood);

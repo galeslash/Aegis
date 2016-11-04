@@ -59,7 +59,7 @@
             android:text="Send"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
+            android:id="@+id/contact"
             android:background="#E14441"
             android:textColor="@android:color/background_light"
             android:textStyle="normal|bold" />
