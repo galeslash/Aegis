@@ -33,8 +33,6 @@ public class HomePage extends AppCompatActivity {
         Facts factHolder;
         Button button;
         Button guide;
-        Button btnLogOut;
-        Button contactUs;
         Button changePassword;
 
         super.onCreate(savedInstanceState);
@@ -53,7 +51,9 @@ public class HomePage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Donor is pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (HomePage.this, MapsActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         guide = (Button) findViewById(R.id.btGuide);
@@ -111,6 +111,8 @@ public class HomePage extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    // Logout Function
     private void logOutUser(){
         session.setLogin(false);
         db.deleteUsers();
