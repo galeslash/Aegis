@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -151,13 +150,14 @@ public class LoginActivity extends AppCompatActivity {
                         String name = user.getString("fullName");
                         String email = user.getString("eMail");
                         String dateOfBirth = user.getString("dateOfBirth");
-                        int phonenumber = user.getInt("phoneNumber");
+                        String phonenumber = user.getString("phoneNumber");
                         String bloodType = user.getString("bloodType");
                         String gender = user.getString("gender");
+                        String image = user.getString("image");
 
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, dateOfBirth, bloodType, phonenumber, gender);
+                        db.addUser(name, email, uid, dateOfBirth, bloodType, phonenumber, gender, image);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,

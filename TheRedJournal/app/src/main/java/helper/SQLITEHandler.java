@@ -35,7 +35,8 @@ public class SQLITEHandler extends SQLiteOpenHelper {
     private static final String KEY_DATE_OF_BIRTH = "dateOfBirth";
     private static final String KEY_BLOODTYPE = "bloodType";
     private static final String KEY_PHONENUMBER = "phoneNumber";
-    private static final String KEY_GENDER = "GENDER";
+    private static final String KEY_GENDER = "gender";
+    private static final String KEY_IMAGE = "image";
 
 
     public SQLITEHandler(Context context) {
@@ -45,12 +46,12 @@ public class SQLITEHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_LOGIN_TABLE = "CREATE TABLE " + USER_PROFILE + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
-                + KEY_DATE_OF_BIRTH + " DATE ," + KEY_BLOODTYPE + " TEXT , "
-                + KEY_PHONENUMBER + " INT ," +
-                  KEY_GENDER + " TEXT" + ")";
+        String CREATE_LOGIN_TABLE = "CREATE TABLE " + USER_PROFILE + "( "
+                + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT, "
+                + KEY_EMAIL + " TEXT UNIQUE, " + KEY_UID + " TEXT, "
+                + KEY_DATE_OF_BIRTH + " TEXT, " + KEY_BLOODTYPE + " TEXT, "
+                + KEY_PHONENUMBER + " TEXT, " +
+                  KEY_GENDER + " TEXT, " + KEY_IMAGE + " TEXT " + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
         Log.d(TAG, "Database tables created");
@@ -69,17 +70,19 @@ public class SQLITEHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String fullName, String eMail, String uid, String dateOfBirth, String bloodType, int phoneNumber , String Gender) {
+    public void addUser(String fullName, String eMail, String uid, String dateOfBirth,
+                        String bloodType, String phoneNumber , String Gender, String image) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, fullName); // Name
         values.put(KEY_EMAIL, eMail); // Email
         values.put(KEY_UID, uid); // uid
-        values.put(KEY_DATE_OF_BIRTH, dateOfBirth); // age
+        values.put(KEY_DATE_OF_BIRTH, dateOfBirth); // dateOfBirth
         values.put(KEY_BLOODTYPE, bloodType);
         values.put(KEY_PHONENUMBER, phoneNumber);
         values.put(KEY_GENDER, Gender);
+        values.put(KEY_IMAGE, image);
 
 
         // Inserting Row
@@ -87,6 +90,31 @@ public class SQLITEHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
 
         Log.d(TAG, "New user inserted into sqlite: " + id);
+    }
+
+    /**
+     * Storing user details in database
+     * */
+
+    public void updateUser(String uid, String fullName, String eMail, String dateOfBirth,
+                           String phoneNumber, String bloodType, String image){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_UID, uid);
+        values.put(KEY_NAME, fullName); // Name
+        values.put(KEY_EMAIL, eMail); // Email
+        values.put(KEY_DATE_OF_BIRTH, dateOfBirth); // dateOfBirth
+        values.put(KEY_PHONENUMBER, phoneNumber); // phoneNumber
+        values.put(KEY_BLOODTYPE, bloodType);// bloodType
+        values.put(KEY_IMAGE, image); // image url
+
+        long id = db.update(USER_PROFILE, values, KEY_UID + "=?", new String[]{uid});
+        db.close(); //Closing database connection
+
+        Log.d(TAG, "User's info was updated into sqlite: " + id);
+
+
     }
 
     /**
@@ -104,10 +132,11 @@ public class SQLITEHandler extends SQLiteOpenHelper {
             user.put("fullName", cursor.getString(1));
             user.put("eMail", cursor.getString(2));
             user.put("uid", cursor.getString(3));
-            user.put("age", cursor.getString(4));
+            user.put("dateOfBirth", cursor.getString(4));
             user.put("bloodType", cursor.getString(5));
             user.put("phoneNumber", cursor.getString(6));
             user.put("gender", cursor.getString(7));
+            user.put("image", cursor.getString(8));
         }
         cursor.close();
         db.close();

@@ -84,12 +84,6 @@ public class Register extends AppCompatActivity {
         confirmPassword = (EditText) findViewById(R.id.rePassword);
         confirmPassword.setTypeface(customFont);
 
-        int selectedIdGender = gender.getCheckedRadioButtonId();
-        int selectedIdBlood = bloodType.getCheckedRadioButtonId();
-        int selectedRhesus = rhesus.getCheckedRadioButtonId();
-        selectBlood = (RadioButton) findViewById(selectedIdBlood);
-        selectGender = (RadioButton) findViewById(selectedIdGender);
-        selectRhesus = (RadioButton) findViewById(selectedRhesus);
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +118,13 @@ public class Register extends AppCompatActivity {
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
+                int selectedIdGender = gender.getCheckedRadioButtonId();
+                int selectedIdBlood = bloodType.getCheckedRadioButtonId();
+                int selectedRhesus = rhesus.getCheckedRadioButtonId();
+                selectBlood = (RadioButton) findViewById(selectedIdBlood);
+                selectGender = (RadioButton) findViewById(selectedIdGender);
+                selectRhesus = (RadioButton) findViewById(selectedRhesus);
+
                 String name = fullName.getText().toString().trim();
                 String email = eMail.getText().toString().trim();
                 String psw = password.getText().toString().trim();
@@ -194,13 +195,14 @@ public class Register extends AppCompatActivity {
                         String name = user.getString("fullName");
                         String email = user.getString("eMail");
                         String dateOfBirth = user.getString("dateOfBirth");
-                        int phonenumber = user.getInt("phoneNumber");
+                        String phonenumber = user.getString("phoneNumber");
                         String bloodType = user.getString("bloodType");
                         String Gender = user.getString("gender");
+                        String image = null;
 
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, dateOfBirth, bloodType, phonenumber, Gender );
+                        db.addUser(name, email, uid, dateOfBirth, bloodType, phonenumber, Gender, image );
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 

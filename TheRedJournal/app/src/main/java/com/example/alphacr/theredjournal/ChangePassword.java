@@ -152,7 +152,7 @@ public class ChangePassword extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(ChangePassword.this, HomePage.class));
+        startActivity(new Intent(ChangePassword.this, UserProfile.class));
         finish();
     }
 
@@ -161,7 +161,7 @@ public class ChangePassword extends AppCompatActivity {
         switch (item.getItemId()){
             // Respond to the action bar's up/home button
             case android.R.id.home:
-                Intent intent  = new Intent(this, HomePage.class);
+                Intent intent  = new Intent(this, UserProfile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
