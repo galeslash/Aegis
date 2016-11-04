@@ -70,6 +70,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+
+        <!-- Change Password -->
         <activity
             android:name=".ChangePassword"
             android:label="Change Password"
@@ -78,6 +80,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
         </activity>
+
+        <!-- Donor's Guide -->
         <activity
             android:name=".DonorsGuide"
             android:label="New Donor&apos;s Guide"
@@ -86,26 +90,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
         </activity>
+
         <activity android:name=".UserProfile" />
         <activity android:name=".EditProfile" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
-        -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"
+            android:parentActivityName=".HomePage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alphacr.theredjournal.HomePage" />
+                android:value=".HomePage" />
         </activity>
     </application>
 
