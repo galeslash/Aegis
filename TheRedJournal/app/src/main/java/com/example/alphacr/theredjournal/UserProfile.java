@@ -61,12 +61,21 @@ public class UserProfile extends AppCompatActivity {
         txtGender.setText(gender);
         txtBloodType.setText(bloodType);
 
-        Picasso.with(this)
+        if(imageUrl!=null) {
+            Picasso.with(this)
                     .load(imageUrl)
                     .placeholder(R.drawable.photo)
                     .error(R.drawable.photo)
                     .noFade()
                     .into(imageView);
+        } else{
+            Picasso.with(this)
+                    .load(R.drawable.photo)
+                    .placeholder(R.drawable.photo)
+                    .error(R.drawable.photo)
+                    .noFade()
+                    .into(imageView);
+        }
 
 
         editProfile = (Button) findViewById(R.id.profileButton);
