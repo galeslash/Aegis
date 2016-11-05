@@ -102,8 +102,7 @@
             android:value="@string/google_maps_key" />
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:parentActivityName=".HomePage">
+            android:label="@string/title_activity_maps">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
@@ -118,9 +117,6 @@
         <activity
             android:name=".EditProfile"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity
-            android:name=".EditProfile"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".request_blood"
             android:label="Request Donation"
             android:launchMode="singleTop">
