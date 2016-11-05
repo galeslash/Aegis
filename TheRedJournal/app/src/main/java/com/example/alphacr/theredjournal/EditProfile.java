@@ -55,6 +55,7 @@ public class EditProfile extends AppCompatActivity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     private Bitmap bitmap;
     private String imageUrl;
+    private String image;
 
 
     @Override
@@ -115,12 +116,21 @@ public class EditProfile extends AppCompatActivity {
         editDateOfBirth.setText(dateOfBirth);
         editPhone.setText(phone);
 
-        Picasso.with(this)
+        if(imageUrl!=null) {
+            Picasso.with(this)
                     .load(imageUrl)
                     .placeholder(R.drawable.photo)
                     .error(R.drawable.photo)
                     .noFade()
                     .into(imageView);
+        } else{
+            Picasso.with(this)
+                    .load(R.drawable.photo)
+                    .placeholder(R.drawable.photo)
+                    .error(R.drawable.photo)
+                    .noFade()
+                    .into(imageView);
+        }
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +203,11 @@ public class EditProfile extends AppCompatActivity {
                 String dateOfBirth = editDateOfBirth.getText().toString().trim();
                 String blood = selectBlood.getText().toString().trim();
                 String rhesus = selectRhesus.getText().toString().trim();
-                String image = getStringImage(bitmap);
+                if(bitmap!=null) {
+                    image = getStringImage(bitmap);
+                } else{
+                    image = "null";
+                }
 
                 if (rhesus.equals("+ (Positive)")){
                     rhesus = "+";
@@ -271,7 +285,9 @@ public class EditProfile extends AppCompatActivity {
                         String bloodType = user.getString("bloodType");
                         String image = user.getString("image");
 
-                        Picasso.with(getApplicationContext()).invalidate(imageUrl);
+                        if(imageUrl != null) {
+                            Picasso.with(getApplicationContext()).invalidate(imageUrl);
+                        }
 
                         //Update user's info
                         db.updateUser(uid, name, email, dateOfBirth, phonenumber, bloodType, image);
