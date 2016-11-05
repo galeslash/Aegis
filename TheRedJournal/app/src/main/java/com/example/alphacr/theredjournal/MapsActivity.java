@@ -1,8 +1,11 @@
 package com.example.alphacr.theredjournal;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.provider.SyncStateContract;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -22,9 +27,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.alphacr.theredjournal.R.id.map;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    // Set a preference for minimum and maximum zoom.
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +48,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMinZoomPreference(10.0f);
+        mMap.setMaxZoomPreference(20.0f);
+
+
+        // Check if GPS Permission is enabled
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            Toast.makeText(getApplicationContext(), "Location Unavailable",
+                    Toast.LENGTH_LONG).show();
+        }
+        // Trying to zoom in to current location
+
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng fasilkom = new LatLng(-6.364803, 106.828703);
+        mMap.addMarker(new MarkerOptions().position(fasilkom).title("Welcome to Fasilkom"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fasilkom, 15));
 
     }
 
