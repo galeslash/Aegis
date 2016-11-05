@@ -53,7 +53,7 @@ public class EditProfile extends AppCompatActivity {
     private CircleImageView imageView;
     private static final int CAPTURE_IMAGE_REQUEST = 2;
     public static final int MEDIA_TYPE_IMAGE = 1;
-    private Bitmap bitmap;
+    private Bitmap bitmap, resizedBitmap;
     private String imageUrl;
     private String image;
 
@@ -204,7 +204,7 @@ public class EditProfile extends AppCompatActivity {
                 String blood = selectBlood.getText().toString().trim();
                 String rhesus = selectRhesus.getText().toString().trim();
                 if(bitmap!=null) {
-                    image = getStringImage(bitmap);
+                    image = getStringImage(resizedBitmap);
                 } else{
                     image = "null";
                 }
@@ -232,7 +232,7 @@ public class EditProfile extends AppCompatActivity {
 
     public String getStringImage(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
@@ -245,17 +245,20 @@ public class EditProfile extends AppCompatActivity {
             Uri filePath = data.getData();
             try{
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
+                resizedBitmap = getResizedBitmap(bitmap, 500);
+                imageView.setImageBitmap(resizedBitmap);
             } catch (IOException e){
                 e.printStackTrace();
             }
         }else if (requestCode == CAPTURE_IMAGE_REQUEST  && resultCode == RESULT_OK){
             bitmap = (Bitmap) data.getExtras().get("data");
+            resizedBitmap = getResizedBitmap(bitmap, 500);
+            imageView.setImageBitmap(resizedBitmap);
             imageView.setImageBitmap(bitmap);
         }
     }
 
-    private void editUser(final String uid, final String name, final String email, final String oldemail, final String phonenumber, final String dateOfBirth, final String bloodType, final String image) {
+    private void editUser(final String uid, final String name, final String email, final String oldemail, final String phonenumber, final String dateOfBirth, final String bloodType, final String imageBitMap) {
 
         String tag_string_req = "req_edit";
 
@@ -285,12 +288,12 @@ public class EditProfile extends AppCompatActivity {
                         String bloodType = user.getString("bloodType");
                         String image = user.getString("image");
 
-                        if(imageUrl != null) {
-                            Picasso.with(getApplicationContext()).invalidate(imageUrl);
-                        }
-
                         //Update user's info
                         db.updateUser(uid, name, email, dateOfBirth, phonenumber, bloodType, image);
+
+                        if(imageUrl != null) {
+                            Picasso.with(getApplicationContext()).invalidate(image);
+                        }
 
                         Toast.makeText(getApplicationContext(), "User's profile successfully updated!", Toast.LENGTH_LONG).show();
 
@@ -331,7 +334,7 @@ public class EditProfile extends AppCompatActivity {
                 params.put("dateOfBirth", dateOfBirth);
                 params.put("phoneNumber", phonenumber);
                 params.put("bloodType", bloodType);
-                params.put("image", image);
+                params.put("image", imageBitMap);
 
                 return params;
             }
@@ -339,6 +342,21 @@ public class EditProfile extends AppCompatActivity {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 0) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     private void hideDialog() {
