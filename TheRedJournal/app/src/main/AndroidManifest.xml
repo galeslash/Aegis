@@ -3,6 +3,7 @@
     package="com.example.alphacr.theredjournal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -57,7 +58,8 @@
         </activity>
 
         <!-- Forgot Password -->
-        <activity android:name=".ForgotPassword"
+        <activity
+            android:name=".ForgotPassword"
             android:label="Forgot Password"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity"
@@ -66,8 +68,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
-        <activity android:name=".ChangePassword"
+        <activity
+            android:name=".ChangePassword"
             android:label="Change Password"
             android:parentActivityName=".HomePage">
             <meta-data
@@ -76,7 +78,7 @@
         </activity>
         <activity
             android:name=".DonorsGuide"
-            android:label="New Donor's Guide"
+            android:label="New Donor&apos;s Guide"
             android:parentActivityName=".HomePage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -84,10 +86,15 @@
         </activity>
         <activity
             android:name=".UserProfile"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:name=".EditProfile" />
+            android:name=".EditProfile"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".request_blood"
+            android:label="Request Donation"
+            android:launchMode="singleTop">
+        </activity>
+
     </application>
 
 </manifest>
