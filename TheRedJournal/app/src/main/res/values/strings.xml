@@ -7,7 +7,7 @@
     <string name="trivia_content">"Ricky Arkan is the best programmer in the world, and he's totally cool and shit."</string>
     <string name="log_out">Log Out</string>
     <string name="contact_us">Contact Us</string>
-    <string name="change_password">Change Password</string>
+    <string name="user_profile">User Profile</string>
 
     <!-- Forgot Password -->
     <string name="forgot">Forgot your password?</string>

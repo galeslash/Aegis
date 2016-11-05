@@ -2,6 +2,7 @@ package com.example.alphacr.theredjournal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -18,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +30,9 @@ import helper.SessionManager;
 
 public class ForgotPassword extends AppCompatActivity {
     private static final String TAG = ForgotPassword.class.getSimpleName();
+    private TextView PswText, instruction;
     private EditText emailField;
+    private Button Send;
     private ProgressDialog progressDialog;
     private SessionManager sessionManager;
     private SQLITEHandler db;
@@ -37,7 +42,21 @@ public class ForgotPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+
+        PswText = (TextView) findViewById(R.id.lostPswText);
+        PswText.setTypeface(customFont);
+
+        instruction = (TextView) findViewById(R.id.instructionText);
+        instruction.setTypeface(customFont);
+
         emailField = (EditText) findViewById(R.id.emailField);
+        emailField.setTypeface(customFont);
+
+        Send = (Button) findViewById(R.id.btnSend);
+        Send.setTypeface(customFont);
+
         Button btnSend = (Button) findViewById(R.id.btnSend);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);

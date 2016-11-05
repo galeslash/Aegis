@@ -2,20 +2,20 @@ package com.example.alphacr.theredjournal;
 
 
 import android.content.Intent;
-import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
-import android.support.annotation.IdRes;
 import android.widget.EditText;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import helper.SQLITEHandler;
 import helper.SessionManager;
@@ -34,6 +34,10 @@ public class HomePage extends AppCompatActivity {
         Button button;
         Button guide;
         Button changePassword;
+        Button btnLogOut;
+        Button contactUs;
+        Button userProfile;
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -70,11 +74,11 @@ public class HomePage extends AppCompatActivity {
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
 
-        changePassword = (Button) findViewById(R.id.changePassword);
-        changePassword.setOnClickListener(new View.OnClickListener() {
+        userProfile = (Button) findViewById(R.id.userProfile);
+        userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, ChangePassword.class);
+                Intent intent = new Intent(HomePage.this, UserProfile.class);
                 startActivity(intent);
                 finish();
             }
@@ -114,8 +118,15 @@ public class HomePage extends AppCompatActivity {
 
     // Logout Function
     private void logOutUser(){
+        HashMap<String, String> user = db.getUserDetails();
+        String imageUrl = user.get("image");
+        if(imageUrl != null) {
+            Picasso.with(getApplicationContext()).invalidate(imageUrl);
+        }
+
         session.setLogin(false);
         db.deleteUsers();
+
         Intent intent = new Intent(HomePage.this, LoginActivity.class);
         startActivity(intent);
         finish();
