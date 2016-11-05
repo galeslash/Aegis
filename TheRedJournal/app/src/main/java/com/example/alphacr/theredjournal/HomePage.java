@@ -33,9 +33,6 @@ public class HomePage extends AppCompatActivity {
         Facts factHolder;
         Button button;
         Button guide;
-        Button changePassword;
-        Button btnLogOut;
-        Button contactUs;
         Button userProfile;
 
 
@@ -74,7 +71,7 @@ public class HomePage extends AppCompatActivity {
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
 
-        userProfile = (Button) findViewById(R.id.userProfile);
+        userProfile = (Button) findViewById(R.id.user_profile);
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

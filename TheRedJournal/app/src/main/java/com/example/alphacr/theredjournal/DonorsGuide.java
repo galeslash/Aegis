@@ -19,10 +19,13 @@ public class DonorsGuide extends AppCompatActivity {
         String formattedText = getString(R.string.guide);
         htmlTextView.setText(Html.fromHtml(formattedText));
     }
+
+    @Override
     public void onBackPressed() {
         startActivity(new Intent(DonorsGuide.this, HomePage.class));
         finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){

@@ -95,10 +95,10 @@
                 android:value=".HomePage" />
         </activity>
 
+        <!-- Maps Stuff -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
@@ -108,13 +108,15 @@
                 android:value=".HomePage" />
         </activity>
 
-
+        <!-- User Profile -->
         <activity
             android:name=".UserProfile"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <!-- Edit Profile -->
         <activity
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:name=".EditProfile" />
+            android:name=".EditProfile"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
 
     </application>
 
