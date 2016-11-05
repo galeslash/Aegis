@@ -13,6 +13,12 @@
         android:layout_alignParentStart="true">
 
     <Button
+        android:text="Request Blood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/request_blood" />
+
+    <Button
         android:text = "@string/user_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

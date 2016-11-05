@@ -3,6 +3,7 @@
     package="com.example.alphacr.theredjournal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -117,6 +118,13 @@
         <activity
             android:name=".EditProfile"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".EditProfile"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".request_blood"
+            android:label="Request Donation"
+            android:launchMode="singleTop">
+        </activity>
 
     </application>
 

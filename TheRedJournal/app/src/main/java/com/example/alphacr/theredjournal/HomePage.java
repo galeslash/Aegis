@@ -33,6 +33,9 @@ public class HomePage extends AppCompatActivity {
         Facts factHolder;
         Button button;
         Button guide;
+        Button btnLogOut;
+        Button contactUs;
+        Button requestBlood;
         Button userProfile;
 
 
@@ -62,6 +65,15 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (HomePage.this, DonorsGuide.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        requestBlood = (Button) findViewById(R.id.request_blood);
+        requestBlood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (HomePage.this, request_blood.class);
                 startActivity(intent);
                 finish();
             }
