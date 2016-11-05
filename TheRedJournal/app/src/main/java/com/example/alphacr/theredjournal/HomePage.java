@@ -33,9 +33,8 @@ public class HomePage extends AppCompatActivity {
         Facts factHolder;
         Button button;
         Button guide;
-        Button btnLogOut;
-        Button contactUs;
         Button userProfile;
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -53,7 +52,9 @@ public class HomePage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Donor is pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (HomePage.this, MapsActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         guide = (Button) findViewById(R.id.btGuide);
@@ -70,7 +71,7 @@ public class HomePage extends AppCompatActivity {
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
 
-        userProfile = (Button) findViewById(R.id.userProfile);
+        userProfile = (Button) findViewById(R.id.user_profile);
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +112,8 @@ public class HomePage extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    // Logout Function
     private void logOutUser(){
         HashMap<String, String> user = db.getUserDetails();
         String imageUrl = user.get("image");
