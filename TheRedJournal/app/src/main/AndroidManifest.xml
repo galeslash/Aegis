@@ -100,6 +100,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
@@ -111,17 +112,20 @@
         <!-- User Profile -->
         <activity
             android:name=".UserProfile"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- Edit Profile -->
         <activity
             android:name=".EditProfile"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".request_blood"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".request_blood"
             android:label="Request Donation"
-            android:launchMode="singleTop">
-        </activity>
-
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

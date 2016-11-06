@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //check if user is logged in or not
         if(session.isLoggedIn()){
-            Intent intent = new Intent(LoginActivity.this, HomePage.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }
@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
-                                HomePage.class);
+                                HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
