@@ -109,7 +109,7 @@ public class UserProfile extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(UserProfile.this, HomePage.class));
+        startActivity(new Intent(UserProfile.this, HomeActivity.class));
         finish();
     }
 }

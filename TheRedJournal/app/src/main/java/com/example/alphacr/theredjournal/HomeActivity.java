@@ -148,12 +148,18 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            logOutUser();
+            Intent intent = new Intent(HomeActivity.this, UserProfile.class);
+            startActivity(intent);
+            finish();
             return true;
         } else if (id == R.id.nav_gallery) {
-
+            Intent intent = new Intent (HomeActivity.this, Contact_Us.class);
+            startActivity(intent);
+            finish();
+            return true;
         } else if (id == R.id.nav_slideshow) {
-
+            logOutUser();
+            return true;
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
