@@ -119,7 +119,9 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".donation_history"></activity>
     </application>
 
 </manifest>
