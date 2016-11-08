@@ -2,19 +2,25 @@ package com.example.alphacr.theredjournal;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.provider.SyncStateContract;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.content.ContextCompat;
-
+import android.Manifest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -42,7 +48,8 @@ public class MapsActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        GoogleMap.OnMapClickListener {
+        GoogleMap.OnMapClickListener,
+        GoogleMap.InfoWindowAdapter{
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -51,6 +58,11 @@ public class MapsActivity extends AppCompatActivity implements
     GoogleMap mGoogleMap;
     SupportMapFragment mFragment;
     Marker currLocationMarker;
+    Marker request_form = null;
+
+    // May need to delete this line
+    // http://android-er.blogspot.co.id/2016/04/requesting-permissions-of.html
+    static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +88,12 @@ public class MapsActivity extends AppCompatActivity implements
         } else {
             Toast.makeText(getApplicationContext(), "Location Unavailable",
                     Toast.LENGTH_LONG).show();
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         }
 
         mGoogleMap.setOnMapClickListener(this);
+        mGoogleMap.setInfoWindowAdapter(this);
+        mGoogleMap.setOnInfoWindowClickListener(MyOnInfoWindowClickListener);
         buildGoogleApiClient();
         mGoogleApiClient.connect();
 
@@ -213,11 +228,126 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onMapClick(LatLng latLng) {
-        mGoogleMap.clear();
-        Marker request_form = mGoogleMap.addMarker(new MarkerOptions()
+        if(request_form != null) {
+            request_form.remove();
+        }
+        request_form = mGoogleMap.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .title("Hello Ricky")
-                                .snippet("Soup ma bitch"));
+                                .snippet("Soup ma bitch")
+                                .draggable(true));
         request_form.showInfoWindow();
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
     }
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
+        //return prepareInfoView(marker);
+    }
+
+    // Custom InfoMaker
+    @Override
+    public View getInfoContents(Marker marker) {
+        //return null;
+        return prepareInfoView(marker);
+
+    }
+    private View prepareInfoView(Marker marker){
+        //prepare InfoView programmatically
+        LinearLayout infoView = new LinearLayout(MapsActivity.this);
+        LinearLayout.LayoutParams infoViewParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        infoView.setOrientation(LinearLayout.HORIZONTAL);
+        infoView.setLayoutParams(infoViewParams);
+
+        ImageView infoImageView = new ImageView(MapsActivity.this);
+        //Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+
+        Drawable drawable = getResources().getDrawable(R.drawable.tearred);
+        infoImageView.setImageDrawable(drawable);
+        infoView.addView(infoImageView);
+
+        LinearLayout subInfoView = new LinearLayout(MapsActivity.this);
+        LinearLayout.LayoutParams subInfoViewParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        subInfoView.setOrientation(LinearLayout.VERTICAL);
+        subInfoView.setLayoutParams(subInfoViewParams);
+
+        TextView subInfoLat = new TextView(MapsActivity.this);
+        subInfoLat.setText("Lat: " + marker.getPosition().latitude);
+        TextView subInfoLnt = new TextView(MapsActivity.this);
+        subInfoLnt.setText("Lnt: " + marker.getPosition().longitude);
+        subInfoView.addView(subInfoLat);
+        subInfoView.addView(subInfoLnt);
+        infoView.addView(subInfoView);
+
+        return infoView;
+    }
+
+
+    // May need to delete this.
+    // http://android-er.blogspot.co.id/2016/04/requesting-permissions-of.html
+    private void getMyLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+
+            //------------------------------------------------------------------------------
+            ActivityCompat.requestPermissions(MapsActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+
+            return;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MapsActivity.this,
+                            "permission was granted, :)",
+                            Toast.LENGTH_LONG).show();
+                    getMyLocation();
+
+                } else {
+                    Toast.makeText(MapsActivity.this,
+                            "permission denied, ...:(",
+                            Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    // "Button" for Request Blood
+    GoogleMap.OnInfoWindowClickListener MyOnInfoWindowClickListener
+            = new GoogleMap.OnInfoWindowClickListener(){
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            // Isaac change this shit
+            Toast.makeText(MapsActivity.this,
+                    "onInfoWindowClick():\n" +
+                            marker.getPosition().latitude + "\n" +
+                            marker.getPosition().longitude,
+                    Toast.LENGTH_LONG).show();
+        }
+    };
 }
