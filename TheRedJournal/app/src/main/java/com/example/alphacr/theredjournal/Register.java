@@ -111,7 +111,7 @@ public class Register extends AppCompatActivity {
         db = new SQLITEHandler(getApplicationContext());
 
         if(session.isLoggedIn()){
-            Intent intent = new Intent(Register.this, HomePage.class);
+            Intent intent = new Intent(Register.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }

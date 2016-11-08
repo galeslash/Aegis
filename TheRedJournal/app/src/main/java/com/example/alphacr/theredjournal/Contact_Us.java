@@ -85,7 +85,7 @@ public class Contact_Us extends AppCompatActivity {
                         String msg = jObj.getString("msg");
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(Contact_Us.this, HomePage.class);
+                        Intent intent = new Intent(Contact_Us.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -134,7 +134,7 @@ public class Contact_Us extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(Contact_Us.this,HomePage.class));
+        startActivity(new Intent(Contact_Us.this,HomeActivity.class));
         finish();
 
     }
@@ -143,7 +143,7 @@ public class Contact_Us extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                Intent intent = new Intent(this, HomePage.class);
+                Intent intent = new Intent(this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

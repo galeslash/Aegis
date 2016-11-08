@@ -22,7 +22,7 @@ public class DonorsGuide extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(DonorsGuide.this, HomePage.class));
+        startActivity(new Intent(DonorsGuide.this, HomeActivity.class));
         finish();
     }
 
@@ -31,7 +31,7 @@ public class DonorsGuide extends AppCompatActivity {
         switch (item.getItemId()){
             // Respond to the action bar's up/home button
             case android.R.id.home:
-                Intent intent  = new Intent(this, HomePage.class);
+                Intent intent  = new Intent(this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
