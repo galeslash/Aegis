@@ -110,7 +110,7 @@ public class HomePage extends AppCompatActivity {
         int id = item.getItemId();
 
         // noinspection SimplifiableIfStatement
-            // Logout
+        // Logout
         if (id == R.id.action_logout){
             logOutUser();
             return true;

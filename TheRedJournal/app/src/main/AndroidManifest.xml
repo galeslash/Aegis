@@ -40,7 +40,7 @@
         <activity
             android:name=".Contact_Us"
             android:label="Contact Us"
-            android:parentActivityName=".HomePage">
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
@@ -90,10 +90,10 @@
         <activity
             android:name=".DonorsGuide"
             android:label="New Donor&apos;s Guide"
-            android:parentActivityName=".HomePage">
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
+                android:value=".HomeActivity" />
         </activity>
 
         <!-- Maps Stuff -->
@@ -106,7 +106,7 @@
             android:label="@string/title_activity_maps">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
+                android:value=".HomeActivity" />
         </activity>
 
         <!-- User Profile -->

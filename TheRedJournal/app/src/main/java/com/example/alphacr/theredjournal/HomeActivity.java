@@ -75,29 +75,10 @@ public class HomeActivity extends AppCompatActivity
                 finish();
             }
         });
-        requestBlood = (Button) findViewById(R.id.request_blood);
-        requestBlood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (HomeActivity.this, request_blood.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         // Nanya isaac ini apa
         db = new SQLITEHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
-
-        userProfile = (Button) findViewById(R.id.user_profile);
-        userProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, UserProfile.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -147,25 +128,24 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.user_profile) {
             Intent intent = new Intent(HomeActivity.this, UserProfile.class);
             startActivity(intent);
             finish();
             return true;
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.blood_request) {
+            Intent intent = new Intent (HomeActivity.this, request_blood.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.contact_us) {
             Intent intent = new Intent (HomeActivity.this, Contact_Us.class);
             startActivity(intent);
             finish();
             return true;
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.log_out) {
             logOutUser();
             return true;
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -85,7 +85,7 @@ public class Contact_Us extends AppCompatActivity {
                         String msg = jObj.getString("msg");
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(Contact_Us.this, HomePage.class);
+                        Intent intent = new Intent(Contact_Us.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
