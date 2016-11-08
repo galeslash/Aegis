@@ -42,7 +42,7 @@ public class MapsActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMapClickListener {
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -78,7 +78,7 @@ public class MapsActivity extends AppCompatActivity implements
                     Toast.LENGTH_LONG).show();
         }
 
-
+        mGoogleMap.setOnMapClickListener(this);
         buildGoogleApiClient();
         mGoogleApiClient.connect();
 
@@ -161,13 +161,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     }
 
-    @Override
-    public boolean onMarkerClick(Marker arg0) {
-    // TODO Auto-generated method stub
 
-        return false;
-    }
-    
     // Search Function
     public void onSearch(View view)
     {
@@ -215,5 +209,15 @@ public class MapsActivity extends AppCompatActivity implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        mGoogleMap.clear();
+        Marker request_form = mGoogleMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .title("Hello Ricky")
+                                .snippet("Soup ma bitch"));
+        request_form.showInfoWindow();
     }
 }
