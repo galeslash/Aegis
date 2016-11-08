@@ -15,12 +15,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.support.v4.content.ContextCompat;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -29,47 +37,138 @@ import java.util.Map;
 
 import static com.example.alphacr.theredjournal.R.id.map;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements
+        OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener,
+        GoogleMap.OnMarkerClickListener {
 
-    private GoogleMap mMap;
-    // Set a preference for minimum and maximum zoom.
+    LocationRequest mLocationRequest;
+    GoogleApiClient mGoogleApiClient;
 
+    LatLng latLng;
+    GoogleMap mGoogleMap;
+    SupportMapFragment mFragment;
+    Marker currLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mFragment.getMapAsync(this);
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.setMinZoomPreference(10.0f);
-        mMap.setMaxZoomPreference(20.0f);
-
+    public void onMapReady(GoogleMap gMap) {
+        mGoogleMap = gMap;
+        mGoogleMap.setMinZoomPreference(13.0f);
+        mGoogleMap.setMaxZoomPreference(20.0f);
 
         // Check if GPS Permission is enabled
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
+            mGoogleMap.setMyLocationEnabled(true);
         } else {
             Toast.makeText(getApplicationContext(), "Location Unavailable",
                     Toast.LENGTH_LONG).show();
         }
-        // Trying to zoom in to current location
 
 
-        // Add a marker in Sydney and move the camera
-        LatLng fasilkom = new LatLng(-6.364803, 106.828703);
-        mMap.addMarker(new MarkerOptions().position(fasilkom).title("Welcome to Fasilkom"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fasilkom, 15));
+        buildGoogleApiClient();
+        mGoogleApiClient.connect();
 
     }
 
+    protected synchronized void buildGoogleApiClient() {
+        Toast.makeText(this,"buildGoogleApiClient",Toast.LENGTH_SHORT).show();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Toast.makeText(this,"onConnected",Toast.LENGTH_SHORT).show();
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            //place marker at current position
+            //mGoogleMap.clear();
+            latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+            markerOptions.title("Current Position");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            currLocationMarker = mGoogleMap.addMarker(markerOptions);
+        }
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(5000); //5 seconds
+        mLocationRequest.setFastestInterval(3000); //3 seconds
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        //mLocationRequest.setSmallestDisplacement(0.1F); //1/10 meter
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Toast.makeText(this,"onConnectionSuspended",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Toast.makeText(this,"onConnectionFailed",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        //place marker at current position
+        //mGoogleMap.clear();
+        if (currLocationMarker != null) {
+            currLocationMarker.remove();
+        }
+        latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("Current Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        currLocationMarker = mGoogleMap.addMarker(markerOptions);
+
+        // Don't delete this ok? ok.
+        //Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+
+        //zoom to current position:
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng).zoom(14).build();
+
+        mGoogleMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
+
+        //If you only need one location, unregister the listener
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker arg0) {
+    // TODO Auto-generated method stub
+
+        return false;
+    }
+    
+    // Search Function
     public void onSearch(View view)
     {
         EditText location_tf = (EditText)findViewById(R.id.TFaddress);
@@ -92,8 +191,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(location.toUpperCase()));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }
 
@@ -103,6 +202,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         finish();
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
