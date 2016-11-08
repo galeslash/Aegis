@@ -105,7 +105,7 @@ public class ChangePassword extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
                         //redirect to homepage
-                        Intent intent = new Intent(ChangePassword.this, HomePage.class);
+                        Intent intent = new Intent(ChangePassword.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {

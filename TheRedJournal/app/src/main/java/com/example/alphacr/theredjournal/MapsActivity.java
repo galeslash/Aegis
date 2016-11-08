@@ -198,7 +198,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(MapsActivity.this,HomePage.class));
+        startActivity(new Intent(MapsActivity.this,HomeActivity.class));
         finish();
 
     }
@@ -208,7 +208,7 @@ public class MapsActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                Intent intent = new Intent(this, HomePage.class);
+                Intent intent = new Intent(this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

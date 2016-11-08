@@ -3,6 +3,7 @@
     package="com.example.alphacr.theredjournal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -33,7 +34,7 @@
         <activity
             android:name=".Contact_Us"
             android:label="Contact Us"
-            android:parentActivityName=".HomePage">
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomePage" />
@@ -83,35 +84,42 @@
         <activity
             android:name=".DonorsGuide"
             android:label="New Donor&apos;s Guide"
-            android:parentActivityName=".HomePage">
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
+                android:value=".HomeActivity" />
         </activity>
 
         <!-- Maps Stuff -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:parentActivityName=".HomePage">
+            android:label="@string/title_activity_maps">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
+                android:value=".HomeActivity" />
         </activity>
 
         <!-- User Profile -->
         <activity
             android:name=".UserProfile"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- Edit Profile -->
         <activity
             android:name=".EditProfile"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".request_blood"
+            android:label="Request Donation"
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
