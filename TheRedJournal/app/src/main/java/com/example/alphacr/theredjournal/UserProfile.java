@@ -65,6 +65,7 @@ public class UserProfile extends AppCompatActivity {
             Picasso.with(this)
                     .load(imageUrl)
                     .placeholder(R.drawable.photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
                     .error(R.drawable.photo)
                     .noFade()
                     .into(imageView);
@@ -72,6 +73,7 @@ public class UserProfile extends AppCompatActivity {
             Picasso.with(this)
                     .load(R.drawable.photo)
                     .placeholder(R.drawable.photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
                     .error(R.drawable.photo)
                     .noFade()
                     .into(imageView);
