@@ -3,6 +3,8 @@ package com.example.alphacr.theredjournal;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ public class request_blood extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+
         Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
         Typeface customFont2 = Typeface.createFromAsset(getAssets(), "fonts/OSP-DIN.ttf");
 
@@ -47,6 +50,15 @@ public class request_blood extends AppCompatActivity {
 
         submit = (Button) findViewById(R.id.requestButton);
         submit.setTypeface(customFont);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String bloodType = spinner.getSelectedItem().toString().trim();
+                String amount = editfield.getText().toString().trim();
+                String longitude = "test";
+                String langitude = "text";
+            }
+        });
 
     }
 }
