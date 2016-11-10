@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.example.alphacr.theredjournal.R.id.map;
@@ -68,7 +69,6 @@ public class MapsActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -80,23 +80,22 @@ public class MapsActivity extends AppCompatActivity implements
         mGoogleMap = gMap;
         mGoogleMap.setMinZoomPreference(13.0f);
         mGoogleMap.setMaxZoomPreference(20.0f);
-
+        mGoogleMap.setOnMapClickListener(this);
+        mGoogleMap.setInfoWindowAdapter(this);
+        mGoogleMap.setOnInfoWindowClickListener(MyOnInfoWindowClickListener);
         // Check if GPS Permission is enabled
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mGoogleMap.setMyLocationEnabled(true);
         } else {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            mGoogleMap.setMyLocationEnabled(true);
             Toast.makeText(getApplicationContext(), "Location Unavailable",
                     Toast.LENGTH_LONG).show();
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         }
 
-        mGoogleMap.setOnMapClickListener(this);
-        mGoogleMap.setInfoWindowAdapter(this);
-        mGoogleMap.setOnInfoWindowClickListener(MyOnInfoWindowClickListener);
         buildGoogleApiClient();
         mGoogleApiClient.connect();
-
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -262,9 +261,9 @@ public class MapsActivity extends AppCompatActivity implements
         infoView.setLayoutParams(infoViewParams);
 
         ImageView infoImageView = new ImageView(MapsActivity.this);
-        //Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
 
-        Drawable drawable = getResources().getDrawable(R.drawable.tearred);
+        //Drawable drawable = getResources().getDrawable(R.drawable.tearred);
         infoImageView.setImageDrawable(drawable);
         infoView.addView(infoImageView);
 
@@ -274,12 +273,40 @@ public class MapsActivity extends AppCompatActivity implements
         subInfoView.setOrientation(LinearLayout.VERTICAL);
         subInfoView.setLayoutParams(subInfoViewParams);
 
-        TextView subInfoLat = new TextView(MapsActivity.this);
-        subInfoLat.setText("Lat: " + marker.getPosition().latitude);
-        TextView subInfoLnt = new TextView(MapsActivity.this);
-        subInfoLnt.setText("Lnt: " + marker.getPosition().longitude);
-        subInfoView.addView(subInfoLat);
-        subInfoView.addView(subInfoLnt);
+
+
+        //TextView subInfoLat = new TextView(MapsActivity.this);
+        //subInfoLat.setText("Lat: " + marker.getPosition().latitude);
+        //TextView subInfoLnt = new TextView(MapsActivity.this);
+        //subInfoLnt.setText("Lnt: " + marker.getPosition().longitude);
+        //subInfoView.addView(subInfoLat);
+        //subInfoView.addView(subInfoLnt);
+
+        TextView donateInfo = new TextView (MapsActivity.this);
+        TextView streetName = new TextView (MapsActivity.this);
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder();
+                for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append(" ");
+                }
+                streetName.setText(strReturnedAddress.toString());
+            }
+            else {
+                streetName.setText("No Address returned!");
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            streetName.setText("Canont get Address!");
+        }
+        donateInfo.setText("CREATE A BLOOD REQUEST");
+        subInfoView.addView(donateInfo);
+        subInfoView.addView(streetName);
         infoView.addView(subInfoView);
 
         return infoView;
