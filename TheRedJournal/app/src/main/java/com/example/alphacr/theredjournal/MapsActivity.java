@@ -273,8 +273,6 @@ public class MapsActivity extends AppCompatActivity implements
         subInfoView.setOrientation(LinearLayout.VERTICAL);
         subInfoView.setLayoutParams(subInfoViewParams);
 
-
-
         //TextView subInfoLat = new TextView(MapsActivity.this);
         //subInfoLat.setText("Lat: " + marker.getPosition().latitude);
         //TextView subInfoLnt = new TextView(MapsActivity.this);
