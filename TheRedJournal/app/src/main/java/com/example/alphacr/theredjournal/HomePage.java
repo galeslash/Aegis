@@ -37,6 +37,7 @@ public class HomePage extends AppCompatActivity {
         Button contactUs;
         Button requestBlood;
         Button userProfile;
+        Button donationHistory;
 
 
         super.onCreate(savedInstanceState);
@@ -74,6 +75,16 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (HomePage.this, request_blood.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        donationHistory = (Button) findViewById(R.id.donation_history2);
+        donationHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (HomePage.this, donation_history.class);
                 startActivity(intent);
                 finish();
             }
