@@ -16,10 +16,18 @@
     <string name="send">Send</string>
 
     <!-- Donors Guide Wall of Text -->
-    <string name="guide">
+    <string name="guide_title">
         <![CDATA[
-        <h1><strong>Before donating, please read this guide.</strong></h1>
+        <h1>Before donating, please read this guide.</h1>
+        ]]>
+    </string>
+    <string name="guide_heading1">
+        <![CDATA[
         <h2>What are the requirements to become a donor?</h2>
+        ]]>
+    </string>
+    <string name="guide_body1">
+        <![CDATA[
         <p>1. In a healthy condition<br />
         2. Is between 17 and 65 years old <br />
         3. Weigh at least 45 kilograms<br />
@@ -28,8 +36,15 @@
         - diastole 70 - 100<br />
         5. Haemoglobin value above 12.5g/dl<br />
         6. Last donated blood 12 weeks or 3 months ago.</p>
-
+        ]]>
+    </string>
+    <string name="guide_heading2">
+        <![CDATA[
         <h2><strong>You are not eligible to donate blood if you either:</strong></h2>
+        ]]>
+    </string>
+    <string name="guide_body2">
+        <![CDATA[
         <p>- suffer from heart and lung diseases<br />
         - have cancer<br />
         - suffer from hypertension<br />
@@ -43,7 +58,15 @@
         - suffer from HIV/AIDS<br />
         - belongs to a group identified at high risk for HIV/AIDS<br />
         - do not have permission from your doctor to donate blood</p>
+        ]]>
+    </string>
+    <string name="guide_heading3">
+        <![CDATA[
         <h2>You may have to delay your blood donation under certain conditions:</h2>
+        ]]>
+    </string>
+    <string name="guide_body3">
+        <![CDATA[
         <p>- Suffering from Fever/Influenza (A week after recovery)<br />
         - After tooth extraction (5 days after recovery)<br />
         - After minor body operation (6 months)<br />
@@ -60,7 +83,7 @@
         - After vaccination (6 weeks)<br />
         - After allergy symptoms (A week after recovery)<br />
         - After skin infection on area to be pierced by the needle (1 week after recovery)</p>
-                    ]]>
+        ]]>
     </string>
 
     <!-- Contact Us -->
