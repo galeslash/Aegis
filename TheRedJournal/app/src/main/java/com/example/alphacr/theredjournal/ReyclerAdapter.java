@@ -15,8 +15,8 @@ import android.widget.Toast;
 public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     private final Context context;
 
-    String [] name={"Apple","Facebook","Twitter","Google",
-            "Microsoft","Wikipedia","Yahoo","Youtube"};
+    String [] name={"Rumah Sakit Pusat Pertamina","Rumah Sakit Pondok Indah","RSU Dr. Cipto Mangunkusuma","Google",
+            "RS. Pertamina Jaya","RS Abdi Waluyo","RS Jakarta","RSia. Evasari"};
 
     // menampilkan list item dalam bentuk text dengan tipe data string dengan variable name
 

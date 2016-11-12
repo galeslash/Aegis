@@ -18,6 +18,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/request_blood" />
 
+    <!--donation history test!-->
+    <Button
+        android:text="Donation History"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/donation_history" />
+
     <Button
         android:text = "@string/user_profile"
         android:layout_width="wrap_content"
