@@ -115,14 +115,17 @@
         <activity
             android:name=".request_blood"
             android:label="Request Donation"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTop"
             android:label="HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".donation_history"></activity>
+        <activity android:name=".donation_history"
+            android:label="The Red Journal"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".HistoryDetails"></activity>
     </application>
 
 </manifest>
