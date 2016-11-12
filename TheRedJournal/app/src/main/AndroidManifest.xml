@@ -124,7 +124,7 @@
             android:launchMode="singleTop"></activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home"
+            android:label="The Red Journal"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
