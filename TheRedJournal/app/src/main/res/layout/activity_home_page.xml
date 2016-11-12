@@ -23,7 +23,7 @@
         android:text="Donation History"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/donation_history" />
+        android:id="@+id/donation_history2" />
 
     <Button
         android:text = "@string/user_profile"

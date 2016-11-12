@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity
         Button contactUs;
         Button requestBlood;
         Button userProfile;
+        Button donationHistory;
         
         
         super.onCreate(savedInstanceState);
@@ -145,6 +146,11 @@ public class HomeActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.log_out) {
             logOutUser();
+            return true;
+        } else if (id == R.id.donation_history) {
+            Intent intent = new Intent (HomeActivity.this, donation_history.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 

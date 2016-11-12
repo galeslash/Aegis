@@ -80,7 +80,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        donationHistory = (Button) findViewById(R.id.donation_history);
+        donationHistory = (Button) findViewById(R.id.donation_history2);
         donationHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
