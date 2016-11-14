@@ -138,7 +138,7 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent (HomeActivity.this, Contact_Us.class);
             startActivity(intent);
             finish();
-            return true;
+           return true;
         } else if (id == R.id.log_out) {
             logOutUser();
             return true;
