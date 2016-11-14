@@ -134,11 +134,6 @@ public class HomeActivity extends AppCompatActivity
             startActivity(intent);
             finish();
             return true;
-        } else if (id == R.id.blood_request) {
-            Intent intent = new Intent (HomeActivity.this, request_blood.class);
-            startActivity(intent);
-            finish();
-            return true;
         } else if (id == R.id.contact_us) {
             Intent intent = new Intent (HomeActivity.this, Contact_Us.class);
             startActivity(intent);

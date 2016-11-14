@@ -6,9 +6,6 @@
             android:id="@+id/user_profile"
             android:title="User Profile" />
         <item
-            android:id="@+id/blood_request"
-            android:title="Request Blood" />
-        <item
             android:id="@+id/contact_us"
             android:title="Contact Us" />
         <item
