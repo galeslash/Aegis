@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class MapsActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         GoogleMap.OnMapClickListener,
-        GoogleMap.InfoWindowAdapter{
+        GoogleMap.InfoWindowAdapter {
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -60,6 +61,8 @@ public class MapsActivity extends AppCompatActivity implements
     SupportMapFragment mFragment;
     Marker currLocationMarker;
     Marker request_form = null;
+    public Double latitude;
+    public Double longitude;
 
     // May need to delete this line
     // http://android-er.blogspot.co.id/2016/04/requesting-permissions-of.html
@@ -99,7 +102,7 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
     protected synchronized void buildGoogleApiClient() {
-        Toast.makeText(this,"buildGoogleApiClient",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -109,7 +112,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onConnected(Bundle bundle) {
-        Toast.makeText(this,"onConnected",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onConnected", Toast.LENGTH_SHORT).show();
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
@@ -132,17 +135,16 @@ public class MapsActivity extends AppCompatActivity implements
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
 
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(this,"onConnectionSuspended",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onConnectionSuspended", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(this,"onConnectionFailed",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onConnectionFailed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -177,18 +179,15 @@ public class MapsActivity extends AppCompatActivity implements
 
 
     // Search Function
-    public void onSearch(View view)
-    {
-        EditText location_tf = (EditText)findViewById(R.id.TFaddress);
+    public void onSearch(View view) {
+        EditText location_tf = (EditText) findViewById(R.id.TFaddress);
         String location = location_tf.getText().toString();
         List<Address> addressList = null;
 
-        if (location.isEmpty()){
+        if (location.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please fill the search bar",
                     Toast.LENGTH_LONG).show();
-        }
-
-        else if (location != null || !location.equals("")) {
+        } else if (location != null || !location.equals("")) {
             Geocoder geocoder = new Geocoder(this);
             try {
                 addressList = geocoder.getFromLocationName(location, 1);
@@ -205,14 +204,14 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onBackPressed(){
-        startActivity(new Intent(MapsActivity.this,HomeActivity.class));
+    public void onBackPressed() {
+        startActivity(new Intent(MapsActivity.this, HomeActivity.class));
         finish();
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
@@ -227,14 +226,14 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onMapClick(LatLng latLng) {
-        if(request_form != null) {
+        if (request_form != null) {
             request_form.remove();
         }
         request_form = mGoogleMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .title("Hello Ricky")
-                                .snippet("Soup ma bitch")
-                                .draggable(true));
+                .position(latLng)
+                .title("Hello Ricky")
+                .snippet("Soup ma bitch")
+                .draggable(true));
         request_form.showInfoWindow();
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
     }
@@ -252,7 +251,8 @@ public class MapsActivity extends AppCompatActivity implements
         return prepareInfoView(marker);
 
     }
-    private View prepareInfoView(Marker marker){
+
+    private View prepareInfoView(Marker marker) {
         //prepare InfoView programmatically
         LinearLayout infoView = new LinearLayout(MapsActivity.this);
         LinearLayout.LayoutParams infoViewParams = new LinearLayout.LayoutParams(
@@ -280,8 +280,8 @@ public class MapsActivity extends AppCompatActivity implements
         //subInfoView.addView(subInfoLat);
         //subInfoView.addView(subInfoLnt);
 
-        TextView donateInfo = new TextView (MapsActivity.this);
-        TextView streetName = new TextView (MapsActivity.this);
+        TextView donateInfo = new TextView(MapsActivity.this);
+        TextView streetName = new TextView(MapsActivity.this);
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
@@ -293,8 +293,7 @@ public class MapsActivity extends AppCompatActivity implements
                     strReturnedAddress.append(returnedAddress.getAddressLine(i)).append(" ");
                 }
                 streetName.setText(strReturnedAddress.toString());
-            }
-            else {
+            } else {
                 streetName.setText("No Address returned!");
             }
         } catch (IOException e) {
@@ -335,6 +334,7 @@ public class MapsActivity extends AppCompatActivity implements
             return;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(
             int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -362,17 +362,29 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
+
+
     // "Button" for Request Blood
     GoogleMap.OnInfoWindowClickListener MyOnInfoWindowClickListener
-            = new GoogleMap.OnInfoWindowClickListener(){
+            = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
             // Isaac change this shit
+            latitude = marker.getPosition().latitude;
+            longitude = marker.getPosition().longitude;
             Toast.makeText(MapsActivity.this,
                     "onInfoWindowClick():\n" +
-                            marker.getPosition().latitude + "\n" +
-                            marker.getPosition().longitude,
+                            latitude + "\n" +
+                            longitude,
                     Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MapsActivity.this, request_blood.class);
+            intent.putExtra("latitude", latitude);
+            intent.putExtra("longitude", longitude);
+            startActivity(intent);
+            finish();
+
         }
     };
+
+
 }
