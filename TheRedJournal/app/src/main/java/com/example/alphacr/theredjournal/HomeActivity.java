@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,70 +17,36 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import helper.SQLITEHandler;
 import helper.SessionManager;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    EditText contactForm;
     private SQLITEHandler db;
     private SessionManager session;
-    TextView factBox;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Facts factHolder;
-        Button button;
-        Button guide;
-        Button btnLogOut;
-        Button contactUs;
-        Button requestBlood;
-        Button userProfile;
-        Button donationHistory;
-        
-        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
-        contactForm = (EditText) findViewById(R.id.contactUs);
 
-        // Fact Coding
-        factHolder = new Facts();
-        factBox = (TextView) findViewById(R.id.trivia_content);
-        factBox.setText(factHolder.nextFact());
-
-        // Button Listener
-        button = (Button) findViewById(R.id.btDonor);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (HomeActivity.this, MapsActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        guide = (Button) findViewById(R.id.btGuide);
-        guide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (HomeActivity.this, DonorsGuide.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        // Nanya isaac ini apa
-        db = new SQLITEHandler(getApplicationContext());
-        session = new SessionManager(getApplicationContext());
+        HomePage fragment = new HomePage();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_home, fragment);
+        fragmentTransaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -89,6 +56,51 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        View header=navigationView.getHeaderView(0);
+
+        CircleImageView imageView = (CircleImageView) header.findViewById(R.id.user_profile);
+
+        TextView nav_name = (TextView) header.findViewById(R.id.navbar_name);
+        TextView nav_email = (TextView) header.findViewById(R.id.navbar_email);
+
+
+        // Nanya isaac ini apa
+        db = new SQLITEHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+
+
+        HashMap<String, String> user = db.getUserDetails();
+        String uname = user.get("fullName");
+        String email = user.get("eMail");
+        String imageUrl = user.get("image");
+
+        if (!session.isLoggedIn()) {
+            logOutUser();
+        }
+
+        if(imageUrl!=null) {
+            Picasso.with(this)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .error(R.drawable.photo)
+                    .noFade()
+                    .into(imageView);
+        } else{
+            Picasso.with(this)
+                    .load(R.drawable.photo)
+                    .placeholder(R.drawable.photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .error(R.drawable.photo)
+                    .noFade()
+                    .into(imageView);
+        }
+
+        nav_name.setText(uname);
+        nav_email.setText(email);
+
     }
 
     @Override
@@ -97,9 +109,15 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(getFragmentManager().getBackStackEntryCount() == 0) {
+                super.onBackPressed();
+            }
+            else {
+                getFragmentManager().popBackStack();
+            }
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,6 +146,7 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.user_profile) {
             Intent intent = new Intent(HomeActivity.this, UserProfile.class);
@@ -135,15 +154,19 @@ public class HomeActivity extends AppCompatActivity
             finish();
             return true;
         } else if (id == R.id.contact_us) {
-            Intent intent = new Intent (HomeActivity.this, Contact_Us.class);
-            startActivity(intent);
-            finish();
-           return true;
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            }
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_home, new Contact_Us())
+                    .addToBackStack(null).commit();
+            return true;
         } else if (id == R.id.log_out) {
             logOutUser();
             return true;
         } else if (id == R.id.donation_history) {
-            Intent intent = new Intent (HomeActivity.this, donation_history.class);
+            Intent intent = new Intent(HomeActivity.this, donation_history.class);
             startActivity(intent);
             finish();
             return true;

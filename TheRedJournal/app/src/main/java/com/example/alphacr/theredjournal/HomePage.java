@@ -2,13 +2,19 @@ package com.example.alphacr.theredjournal;
 
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
@@ -20,15 +26,22 @@ import java.util.HashMap;
 import helper.SQLITEHandler;
 import helper.SessionManager;
 
-public class HomePage extends AppCompatActivity {
+import static android.R.attr.id;
 
-    EditText contactForm;
+public class HomePage extends Fragment {
+
     private SQLITEHandler db;
     private SessionManager session;
     TextView factBox;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final FragmentActivity    faActivity  = (FragmentActivity)    super.getActivity();
+        // Replace LinearLayout by the type of the root element of the layout you're trying to load
+        LinearLayout llLayout    = (LinearLayout)    inflater.inflate(R.layout.activity_home_page, container, false);
+        // Of course you will want to faActivity and llLayout in the class and not this method to access them in the rest of
+        // the class, just initialize them here
+
 
         Facts factHolder;
         Button button;
@@ -39,78 +52,50 @@ public class HomePage extends AppCompatActivity {
         Button userProfile;
         Button donationHistory;
 
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
-
-        contactForm = (EditText) findViewById(R.id.contactUs);
-
+        // Content of previous onCreate() here
+        // ...
 
         // Fact Coding
         factHolder = new Facts();
-        factBox = (TextView) findViewById(R.id.trivia_content);
+        factBox = (TextView) llLayout.findViewById(R.id.trivia_content);
         factBox.setText(factHolder.nextFact());
 
         // Button Listener
-        button = (Button) findViewById(R.id.btDonor);
+        button = (Button) llLayout.findViewById(R.id.btDonor);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (HomePage.this, MapsActivity.class);
+                Intent intent = new Intent (faActivity, MapsActivity.class);
                 startActivity(intent);
-                finish();
+                faActivity.finish();
             }
         });
-        guide = (Button) findViewById(R.id.btGuide);
+        guide = (Button) llLayout.findViewById(R.id.btGuide);
         guide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (HomePage.this, DonorsGuide.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        requestBlood = (Button) findViewById(R.id.request_blood);
-        requestBlood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (HomePage.this, request_blood.class);
-                startActivity(intent);
-                finish();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_home, new DonorsGuide())
+                        .addToBackStack(null).commit();
             }
         });
 
-        donationHistory = (Button) findViewById(R.id.donation_history2);
-        donationHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (HomePage.this, donation_history.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        // Don't use this method, it's handled by inflater.inflate() above :
+        // setContentView(R.layout.activity_layout);
 
-        // Nanya isaac ini apa
-        db = new SQLITEHandler(getApplicationContext());
-        session = new SessionManager(getApplicationContext());
-
-        userProfile = (Button) findViewById(R.id.user_profile);
-        userProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, UserProfile.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        // The FragmentActivity doesn't contain the layout directly so we must use our instance of     LinearLayout :
+        // Instead of :
+        // findViewById(R.id.someGuiElement);
+        return llLayout; // We must return the loaded Layout
     }
 
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -127,9 +112,9 @@ public class HomePage extends AppCompatActivity {
             return true;
             // Contact Us
         } else if (id == R.id.action_contact_us) {
-            Intent intent = new Intent (HomePage.this, Contact_Us.class);
+            Intent intent = new Intent (super.getActivity(), Contact_Us.class);
             startActivity(intent);
-            finish();
+            super.getActivity().finish();
             return true;
         }
 
@@ -141,14 +126,14 @@ public class HomePage extends AppCompatActivity {
         HashMap<String, String> user = db.getUserDetails();
         String imageUrl = user.get("image");
         if(imageUrl != null) {
-            Picasso.with(getApplicationContext()).invalidate(imageUrl);
+            Picasso.with(super.getActivity().getApplicationContext()).invalidate(imageUrl);
         }
 
         session.setLogin(false);
         db.deleteUsers();
 
-        Intent intent = new Intent(HomePage.this, LoginActivity.class);
+        Intent intent = new Intent(super.getActivity(), LoginActivity.class);
         startActivity(intent);
-        finish();
+        super.getActivity().finish();
     }
 }
