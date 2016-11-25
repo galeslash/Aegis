@@ -247,14 +247,14 @@ public class EditProfile extends AppCompatActivity {
             Uri filePath = data.getData();
             try{
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                resizedBitmap = getResizedBitmap(bitmap, 500);
+                resizedBitmap = getResizedBitmap(bitmap, 200);
                 imageView.setImageBitmap(resizedBitmap);
             } catch (IOException e){
                 e.printStackTrace();
             }
         }else if (requestCode == CAPTURE_IMAGE_REQUEST  && resultCode == RESULT_OK){
             bitmap = (Bitmap) data.getExtras().get("data");
-            resizedBitmap = getResizedBitmap(bitmap, 500);
+            resizedBitmap = getResizedBitmap(bitmap, 200);
             imageView.setImageBitmap(resizedBitmap);
             imageView.setImageBitmap(bitmap);
         }

@@ -150,6 +150,7 @@ public class request_blood extends AppCompatActivity {
                 params.put("amount", String.valueOf(amount));
                 params.put("latitude", String.valueOf(latitude));
                 params.put("longitude", String.valueOf(longitude));
+                params.put("status", "On Request");
 
                 return params;
             }
