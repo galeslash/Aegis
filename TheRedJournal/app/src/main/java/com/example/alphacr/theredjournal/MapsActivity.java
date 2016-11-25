@@ -94,6 +94,7 @@ public class MapsActivity extends AppCompatActivity implements
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                refreshLayout.setRefreshing(true);
                 getLocation();
                 refreshLayout.setRefreshing(false);
             }
@@ -128,18 +129,20 @@ public class MapsActivity extends AppCompatActivity implements
                                     Double lng = user.getDouble("longitude");
                                     String bloodType = user.getString("bloodType");
                                     String amount = user.getString("amount");
+                                    String phoneNumber = user.getString("phoneNumber");
 
                                     HashMap<String, String> data = new HashMap<>();
                                     data.put("name", name);
-                                    data.put("blood Type", bloodType);
+                                    data.put("bloodType", bloodType);
                                     data.put("amount", amount);
+                                    data.put("phoneNumber", phoneNumber);
 
                                     latLng = new LatLng(lat, lng);
                                     MarkerOptions markerOptions = new MarkerOptions();
                                     markerOptions.position(latLng);
                                     markerOptions.title("donor");
                                     markerOptions.snippet("Name = " + name + "\n" +
-                                            "Blood Type = " + bloodType + "\n" + "amount = " + amount);
+                                            "Blood Type = " + bloodType + "\n" + "Amount = " + amount);
                                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
                                     Marker marker = mGoogleMap.addMarker(markerOptions);
                                     markerInfo.put(marker.getId(), data);
@@ -474,10 +477,13 @@ public class MapsActivity extends AppCompatActivity implements
                 String name = markerData.get("name");
                 String bloodType = markerData.get("bloodType");
                 String amount = markerData.get("amount");
+                String phoneNumber = markerData.get("phoneNumber");
+                Toast.makeText(getApplicationContext(),name + bloodType + amount + phoneNumber, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent (MapsActivity.this, MapsActivity.class); // fake class
                 intent.putExtra("name", name);
                 intent.putExtra("bloodType", bloodType);
                 intent.putExtra("amount", amount);
+                intent.putExtra("phoneNumber", phoneNumber);
                 startActivity(intent);
                 finish();
             } else {
