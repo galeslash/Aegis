@@ -11,7 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.content.ContextCompat;
 import android.Manifest;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -37,8 +44,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -51,18 +63,22 @@ public class MapsActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         GoogleMap.OnMapClickListener,
-        GoogleMap.InfoWindowAdapter {
+        GoogleMap.InfoWindowAdapter
+        {
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
 
+    private  static final String TAG = MapsActivity.class.getSimpleName();
     LatLng latLng;
     GoogleMap mGoogleMap;
     SupportMapFragment mFragment;
     Marker currLocationMarker;
     Marker request_form = null;
+    SwipeRefreshLayout refreshLayout;
     public Double latitude;
     public Double longitude;
+    public HashMap<String, HashMap> markerInfo;
 
     // May need to delete this line
     // http://android-er.blogspot.co.id/2016/04/requesting-permissions-of.html
@@ -72,10 +88,85 @@ public class MapsActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        getLocation();
+        markerInfo = new HashMap<>();
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.setRefreshing(true);
+                getLocation();
+                refreshLayout.setRefreshing(false);
+            }
+
+
+        });
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mFragment.getMapAsync(this);
+    }
+
+    private void getLocation() {
+        String tag_string_req = "req_get_location";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_GET_LOCATION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "Get Location Response: " + response);
+
+                        try{
+                            JSONObject jObj = new JSONObject(response);
+                            boolean error = jObj.getBoolean("error");
+                            if(!error){
+                                JSONArray jsonArray = jObj.getJSONArray("msg");
+                                for(int i=0;i<jsonArray.length();i++){
+                                    JSONObject jLocation =jsonArray.getJSONObject(i);
+                                    JSONObject user = jLocation.getJSONObject("user");
+                                    String name = user.getString("name");
+                                    Double lat = user.getDouble("latitude");
+                                    Double lng = user.getDouble("longitude");
+                                    String bloodType = user.getString("bloodType");
+                                    String amount = user.getString("amount");
+                                    String phoneNumber = user.getString("phoneNumber");
+
+                                    HashMap<String, String> data = new HashMap<>();
+                                    data.put("name", name);
+                                    data.put("bloodType", bloodType);
+                                    data.put("amount", amount);
+                                    data.put("phoneNumber", phoneNumber);
+
+                                    latLng = new LatLng(lat, lng);
+                                    MarkerOptions markerOptions = new MarkerOptions();
+                                    markerOptions.position(latLng);
+                                    markerOptions.title("donor");
+                                    markerOptions.snippet("Name = " + name + "\n" +
+                                            "Blood Type = " + bloodType + "\n" + "Amount = " + amount);
+                                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                                    Marker marker = mGoogleMap.addMarker(markerOptions);
+                                    markerInfo.put(marker.getId(), data);
+                                }
+                            } else{
+                                String errorMsg = jObj.getString("error_msg");
+                                Toast.makeText(getApplicationContext(),
+                                        errorMsg, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     @Override
@@ -280,8 +371,11 @@ public class MapsActivity extends AppCompatActivity implements
         //subInfoView.addView(subInfoLat);
         //subInfoView.addView(subInfoLnt);
 
+        String title = marker.getTitle();
+
         TextView donateInfo = new TextView(MapsActivity.this);
         TextView streetName = new TextView(MapsActivity.this);
+        TextView donorInfo = new TextView(MapsActivity.this);
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
@@ -301,11 +395,18 @@ public class MapsActivity extends AppCompatActivity implements
             e.printStackTrace();
             streetName.setText("Canont get Address!");
         }
-        donateInfo.setText("CREATE A BLOOD REQUEST");
-        subInfoView.addView(donateInfo);
-        subInfoView.addView(streetName);
-        infoView.addView(subInfoView);
-
+        if(title.equals("donor")){
+            donateInfo.setText("DONOR REQUEST");
+            subInfoView.addView(donateInfo);
+            donorInfo.setText(marker.getSnippet());
+            subInfoView.addView(donorInfo);
+            infoView.addView(subInfoView);
+        } else {
+            donateInfo.setText("CREATE A BLOOD REQUEST");
+            subInfoView.addView(donateInfo);
+            subInfoView.addView(streetName);
+            infoView.addView(subInfoView);
+        }
         return infoView;
     }
 
@@ -370,18 +471,36 @@ public class MapsActivity extends AppCompatActivity implements
         @Override
         public void onInfoWindowClick(Marker marker) {
             // Isaac change this shit
-            latitude = marker.getPosition().latitude;
-            longitude = marker.getPosition().longitude;
-            Toast.makeText(MapsActivity.this,
-                    "onInfoWindowClick():\n" +
-                            latitude + "\n" +
-                            longitude,
-                    Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MapsActivity.this, request_blood.class);
-            intent.putExtra("latitude", latitude);
-            intent.putExtra("longitude", longitude);
-            startActivity(intent);
-            finish();
+            String title = marker.getTitle();
+            if (title.equals("donor")){
+                HashMap<String, String> markerData = markerInfo.get(marker.getId());
+                String name = markerData.get("name");
+                String bloodType = markerData.get("bloodType");
+                String amount = markerData.get("amount");
+                String phoneNumber = markerData.get("phoneNumber");
+                Toast.makeText(getApplicationContext(),name + bloodType + amount + phoneNumber, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent (MapsActivity.this, MapsActivity.class); // fake class
+                intent.putExtra("name", name);
+                intent.putExtra("bloodType", bloodType);
+                intent.putExtra("amount", amount);
+                intent.putExtra("phoneNumber", phoneNumber);
+                startActivity(intent);
+                finish();
+            } else {
+                latitude = marker.getPosition().latitude;
+                longitude = marker.getPosition().longitude;
+                Toast.makeText(MapsActivity.this,
+                        "onInfoWindowClick():\n" +
+                                latitude + "\n" +
+                                longitude,
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MapsActivity.this, request_blood.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
+                startActivity(intent);
+                finish();
+            }
+
 
         }
     };
