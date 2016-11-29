@@ -37,14 +37,10 @@
             android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
+                android:value=".HomeActivity" />
         </activity>
 
         <!-- Home Page -->
-        <activity
-            android:name=".HomePage"
-            android:label="The Red Journal"
-            android:launchMode="singleTop" />
 
         <!-- Register -->
         <activity
@@ -74,10 +70,8 @@
         <activity
             android:name=".ChangePassword"
             android:label="Change Password"
-            android:parentActivityName=".HomePage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomePage" />
         </activity>
 
         <!-- Donor's Guide -->
