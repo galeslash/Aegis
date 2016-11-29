@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_accepting_blood"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.alphacr.theredjournal.AcceptingBlood">
+
+    <!-- User Profile Image : Circle View -->
+    <!-- probs wrong sorry isaac -->
+
+    <view
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        class="de.hdodenhof.circleimageview.CircleImageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="23dp"
+        android:id="@+id/userProfileView" />
+
+    <TextView
+        android:text="Heisenberg wants to request some blood"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="17dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:id="@+id/titleUserRequest"
+        android:layout_alignBottom="@+id/userProfileView"
+        android:layout_toRightOf="@+id/userProfileView"
+        android:layout_toEndOf="@+id/userProfileView"
+        android:layout_marginBottom="13dp" />
+
+    <TextView
+        android:background="#F0F0F0"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/userProfileView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="59dp"
+        android:id="@+id/colorBox"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Blood Type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/requestTypeText"
+        android:paddingTop="5dp"
+        android:layout_alignTop="@+id/colorBox"
+        android:layout_alignLeft="@+id/userProfileView"
+        android:layout_alignStart="@+id/userProfileView" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/colorBox"
+        android:layout_alignLeft="@+id/requestTypeText"
+        android:layout_alignStart="@+id/requestTypeText"
+        android:id="@+id/requestType"
+        android:paddingBottom="5dp"/>
+
+    <TextView
+        android:background="#F0F0F0"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/colorBox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/colorBox2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/colorBox2"
+        android:layout_alignLeft="@+id/requestType"
+        android:layout_alignStart="@+id/requestType"
+        android:id="@+id/requestAmountText"
+        android:paddingTop="5dp"/>
+
+    <TextView
+        android:text="One Pint (473 ml)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/colorBox2"
+        android:layout_alignLeft="@+id/requestAmountText"
+        android:layout_alignStart="@+id/requestAmountText"
+        android:id="@+id/requestAmount"
+        android:paddingBottom="5dp"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/redbar"
+        android:layout_below="@+id/colorBox2"
+        android:layout_alignLeft="@+id/requestAmount"
+        android:layout_alignStart="@+id/requestAmount"
+        android:layout_marginTop="31dp"
+        android:id="@+id/locImageBar" />
+
+    <TextView
+        android:text="Metropolitan Medical Centre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hospitalLocation"
+        android:layout_alignTop="@+id/locImageBar"
+        android:layout_toRightOf="@+id/locImageBar"
+        android:layout_toEndOf="@+id/locImageBar"
+        android:paddingTop="7dp"/>
+
+    <Button
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"
+        android:text="Accept"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:id="@+id/acceptRequestButton" />
+
+</RelativeLayout>

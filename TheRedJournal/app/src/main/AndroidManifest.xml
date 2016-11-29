@@ -121,7 +121,8 @@
             android:name=".donation_history"
             android:label="The Red Journal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HistoryDetails"></activity>
+        <activity android:name=".HistoryDetails" />
+        <activity android:name=".AcceptingBlood"></activity>
     </application>
 
 </manifest>

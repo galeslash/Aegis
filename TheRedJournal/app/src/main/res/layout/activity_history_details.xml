@@ -150,5 +150,25 @@
         android:layout_toEndOf="@+id/detailsDate"
         android:paddingTop="10dp"/>
 
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/redbar"
+        android:layout_marginTop="21dp"
+        android:id="@+id/redbar"
+        android:layout_below="@+id/detailsBox3"
+        android:layout_alignRight="@+id/detailsType"
+        android:layout_alignEnd="@+id/detailsType" />
+
+    <TextView
+        android:text="RSUP Dr.Cipto Mangunkusumo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hospital"
+        android:layout_alignTop="@+id/redbar"
+        android:layout_toRightOf="@+id/redbar"
+        android:layout_toEndOf="@+id/redbar"
+        android:paddingTop="7dp"/>
+
 
 </RelativeLayout>
