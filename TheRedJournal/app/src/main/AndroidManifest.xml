@@ -40,7 +40,6 @@
                 android:value=".HomeActivity" />
         </activity>
 
-        <!-- Home Page -->
 
         <!-- Register -->
         <activity
@@ -70,8 +69,10 @@
         <activity
             android:name=".ChangePassword"
             android:label="Change Password"
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
         </activity>
 
         <!-- Donor's Guide -->
