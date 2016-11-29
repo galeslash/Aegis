@@ -6,8 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -161,7 +163,7 @@ public class MapsActivity extends AppCompatActivity implements
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
+                Log.e(TAG, "Location Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -169,6 +171,7 @@ public class MapsActivity extends AppCompatActivity implements
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onMapReady(GoogleMap gMap) {
         mGoogleMap = gMap;
@@ -182,6 +185,7 @@ public class MapsActivity extends AppCompatActivity implements
                 == PackageManager.PERMISSION_GRANTED) {
             mGoogleMap.setMyLocationEnabled(true);
         } else {
+            Log.e(TAG, "Location Unavailable");
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             mGoogleMap.setMyLocationEnabled(true);
             Toast.makeText(getApplicationContext(), "Location Unavailable",
@@ -206,17 +210,6 @@ public class MapsActivity extends AppCompatActivity implements
         Toast.makeText(this, "onConnected", Toast.LENGTH_SHORT).show();
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-        if (mLastLocation != null) {
-            //place marker at current position
-            //mGoogleMap.clear();
-            latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latLng);
-            markerOptions.title("Current Position");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-            currLocationMarker = mGoogleMap.addMarker(markerOptions);
-        }
-
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(5000); //5 seconds
         mLocationRequest.setFastestInterval(3000); //3 seconds
@@ -240,22 +233,9 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-
-        //place marker at current position
-        //mGoogleMap.clear();
-        if (currLocationMarker != null) {
-            currLocationMarker.remove();
-        }
+        // While keep track of user's current location and move in the map into current position
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        currLocationMarker = mGoogleMap.addMarker(markerOptions);
-
-        // Don't delete this ok? ok.
-        //Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-
+        Log.d(TAG, "Location Changed");
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng).zoom(14).build();
@@ -282,15 +262,16 @@ public class MapsActivity extends AppCompatActivity implements
             Geocoder geocoder = new Geocoder(this);
             try {
                 addressList = geocoder.getFromLocationName(location, 1);
-
-            } catch (IOException e) {
+                Address address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(location.toUpperCase()));
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(this, "Location you search cannot be found.", Toast.LENGTH_SHORT).show();
             }
 
-            Address address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(location.toUpperCase()));
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
         }
     }
 
