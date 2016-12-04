@@ -116,7 +116,6 @@
             android:launchMode="singleTop"
             android:label="The Red Journal"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
         <activity
             android:name=".donation_history"
             android:label="The Red Journal"
