@@ -12,11 +12,17 @@ import android.widget.Toast;
  * Created by Revin on 07-Nov-16.
  */
 
+
+
+
+
 public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     private final Context context;
 
-    String [] name={"Rumah Sakit Pusat Pertamina","Rumah Sakit Pondok Indah","RSU Dr. Cipto Mangunkusuma","Google",
-            "RS. Pertamina Jaya","RS Abdi Waluyo","RS Jakarta","RSia. Evasari"};
+    //String [] name={"Rumah Sakit Pusat Pertamina", "penis", "pneis"};
+    String [] address;
+    String [] name;
+    String [] bloodType;
 
     // menampilkan list item dalam bentuk text dengan tipe data string dengan variable name
 
@@ -24,6 +30,11 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     public ReyclerAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
+    }
+    public void Data(String [] Name, String [] Address, String [] BloodType){
+        name = Name;
+        address = Address;
+        bloodType = bloodType;
     }
     @Override
     public ReyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,9 +48,12 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     public void onBindViewHolder(ReyclerViewHolder holder, int position) {
         holder.tv1.setText(name[position]);
         holder.tv1.setOnClickListener(clickListener);
+        holder.tv2.setText(address[position]);
+        holder.tv2.setOnClickListener(clickListener);
         holder.imageView.setOnClickListener(clickListener);
         holder.tv1.setTag(holder);
         holder.imageView.setTag(holder);
+        holder.tv2.setTag(holder);
 
     }
 
