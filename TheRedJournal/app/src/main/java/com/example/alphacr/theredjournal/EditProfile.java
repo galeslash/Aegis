@@ -261,7 +261,9 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
-    private void editUser(final String uid, final String name, final String email, final String oldemail, final String phonenumber, final String dateOfBirth, final String bloodType, final String imageBitMap) {
+    private void editUser(final String uid, final String name, final String email,
+                          final String oldemail, final String phonenumber, final String dateOfBirth,
+                          final String bloodType, final String imageBitMap) {
 
         String tag_string_req = "req_edit";
 
