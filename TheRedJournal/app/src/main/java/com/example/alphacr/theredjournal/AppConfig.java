@@ -14,6 +14,7 @@ public class AppConfig {
     public static String URL_EDIT_PROFILE = "http://redjournal.hol.es/editProfile.php";
     public static String URL_REQUEST_BLOOD = "http://redjournal.hol.es/requestBlood.php";
     public static String URL_GET_LOCATION = "http://redjournal.hol.es/getLocation.php";
+    public static String URL_GET_HISTORY = "http://redjournal.hol.es/bloodHistory.php";
 
 
 }
