@@ -65,6 +65,8 @@
                 android:textAlignment="center"
                 android:layout_weight="0.12" />
 
+
+
             <TextView
                 android:text="Email:"
                 android:layout_width="match_parent"
