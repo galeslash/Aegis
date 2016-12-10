@@ -2,6 +2,7 @@ package com.example.alphacr.theredjournal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import firebase.FirebaseId;
 import helper.SQLITEHandler;
 
 public class request_blood extends AppCompatActivity {
@@ -40,6 +42,7 @@ public class request_blood extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private SQLITEHandler db;
     private String uid;
+    private FirebaseId firebaseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,9 @@ public class request_blood extends AppCompatActivity {
         info = (TextView) findViewById(R.id.amountInfo);
         info.setTypeface(customFont);
 
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(AppConfig.SHARED_PREF, 0);
+        final String fId = pref.getString("regId", null);
+
         submit = (Button) findViewById(R.id.requestButton);
         submit.setTypeface(customFont);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +93,7 @@ public class request_blood extends AppCompatActivity {
                 Double longitude = bundle.getDouble("longitude");
 
                 if(!bloodType.isEmpty() && amount != 0){
-                    requestingBlood(uid, bloodType, amount, latitude, longitude);
+                    requestingBlood(uid, bloodType, amount, latitude, longitude, fId);
                 } else{
                     Toast.makeText(getApplicationContext(), "All fields must not empty!"
                     , Toast.LENGTH_LONG).show();
@@ -98,7 +104,7 @@ public class request_blood extends AppCompatActivity {
     }
 
     private void requestingBlood(final String uid, final String bloodType, final int amount,
-                                 final Double latitude, final Double longitude) {
+                                 final Double latitude, final Double longitude, final String firebaseId) {
         String tag_string_req = "req_blood";
         progressDialog.setMessage("Submitting...");
         showDialog();
@@ -150,6 +156,7 @@ public class request_blood extends AppCompatActivity {
                 params.put("amount", String.valueOf(amount));
                 params.put("latitude", String.valueOf(latitude));
                 params.put("longitude", String.valueOf(longitude));
+                params.put("firebaseId", firebaseId);
                 params.put("status", "On Request");
 
                 return params;

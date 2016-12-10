@@ -120,8 +120,22 @@
             android:label="The Red Journal"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HistoryDetails" />
-        <activity android:name=".AcceptingBlood" />
-        <activity android:name=".notification_detail"></activity>
+        <activity android:name=".AcceptingBlood"></activity>
+	<activity android:name=".notification_detail"></activity>
+
+        <!-- Firebase Notifications -->
+        <service android:name="firebase.FirebaseMsgService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="firebase.FirebaseId">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- ./Firebase Notifications -->
     </application>
 
 </manifest>

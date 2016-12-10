@@ -14,6 +14,12 @@ public class AppConfig {
     public static String URL_EDIT_PROFILE = "http://redjournal.hol.es/editProfile.php";
     public static String URL_REQUEST_BLOOD = "http://redjournal.hol.es/requestBlood.php";
     public static String URL_GET_LOCATION = "http://redjournal.hol.es/getLocation.php";
+    public static String URL_RESPONSE_REQUEST = "http://redjournal.hol.es/responseRequest.php";
+    public static final String SHARED_PREF = "ah_firebase";
+
+    // broadcast receiver intent filters
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    public static final String PUSH_NOTIFICATION = "pushNotification";
 
     // id to handle the notification in the notification tray
     public static final int NOTIFICATION_ID = 100;
