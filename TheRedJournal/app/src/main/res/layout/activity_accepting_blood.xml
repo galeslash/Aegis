@@ -14,10 +14,9 @@
     <!-- User Profile Image : Circle View -->
     <!-- probs wrong sorry isaac -->
 
-    <view
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="85dp"
         android:layout_height="85dp"
-        class="de.hdodenhof.circleimageview.CircleImageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

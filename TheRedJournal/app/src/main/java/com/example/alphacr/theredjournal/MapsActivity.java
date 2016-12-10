@@ -460,7 +460,7 @@ public class MapsActivity extends AppCompatActivity implements
                 String amount = markerData.get("amount");
                 String phoneNumber = markerData.get("phoneNumber");
                 Toast.makeText(getApplicationContext(),name + bloodType + amount + phoneNumber, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent (MapsActivity.this, MapsActivity.class); // fake class
+                Intent intent = new Intent (MapsActivity.this, AcceptingBlood.class); // fake class
                 intent.putExtra("name", name);
                 intent.putExtra("bloodType", bloodType);
                 intent.putExtra("amount", amount);
