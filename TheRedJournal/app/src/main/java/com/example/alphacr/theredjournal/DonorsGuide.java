@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.support.v4.app.Fragment
+import android.support.v4.app.Fragment;
 
 
-public class DonorsGuide extends Fragment {
+public class DonorsGuide extends AppCompatActivity {
     private TextView title, heading1, body1, heading2, body2, heading3, body3;
     private String titleStr, heading1Str, body1Str, heading2Str, body2Str, heading3Str, body3Str;
 

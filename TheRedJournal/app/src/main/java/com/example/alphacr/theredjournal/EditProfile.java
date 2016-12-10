@@ -301,7 +301,7 @@ public class EditProfile extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "User's profile successfully updated!", Toast.LENGTH_LONG).show();
 
                         //Launch User Profile
-                        Intent intent = new Intent(EditProfile.this, UserProfile.class);
+                        Intent intent = new Intent(EditProfile.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
 
