@@ -40,7 +40,6 @@
                 android:value=".HomeActivity" />
         </activity>
 
-
         <!-- Register -->
         <activity
             android:name=".Register"
@@ -113,15 +112,16 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".HomeActivity"
-            android:launchMode="singleTop"
             android:label="The Red Journal"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".donation_history"
             android:label="The Red Journal"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HistoryDetails" />
-        <activity android:name=".AcceptingBlood"></activity>
+        <activity android:name=".AcceptingBlood" />
+        <activity android:name=".notification_detail"></activity>
     </application>
 
 </manifest>
