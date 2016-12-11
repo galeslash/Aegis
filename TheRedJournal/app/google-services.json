@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "862165766685",
+    "firebase_url": "https://red-journal-e4a6f.firebaseio.com",
+    "project_id": "red-journal-e4a6f",
+    "storage_bucket": "red-journal-e4a6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862165766685:android:0eb900aaacf8dbe9",
+        "android_client_info": {
+          "package_name": "com.example.alphacr.theredjournal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862165766685-c1bnvhi7r7tu5rnf7ch6pqaqr4gtv5bb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alphacr.theredjournal",
+            "certificate_hash": "9F995C7AA305F1BE5D5219239874427D726DBD83"
+          }
+        },
+        {
+          "client_id": "862165766685-emkhjhqcjj463vapbha5nrcc3jv8ahu9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9vk1wSBMHkOTDhK4Hn257A7L5cCXfHws"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862165766685-emkhjhqcjj463vapbha5nrcc3jv8ahu9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

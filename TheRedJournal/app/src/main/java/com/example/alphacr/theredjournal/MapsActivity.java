@@ -58,6 +58,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.example.alphacr.theredjournal.R.id.map;
+import static com.example.alphacr.theredjournal.R.id.start;
 
 public class MapsActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -125,6 +126,8 @@ public class MapsActivity extends AppCompatActivity implements
                                 JSONArray jsonArray = jObj.getJSONArray("msg");
                                 for(int i=0;i<jsonArray.length();i++){
                                     JSONObject jLocation =jsonArray.getJSONObject(i);
+                                    String reqId = jLocation.getString("reqId");
+                                    String uid = jLocation.getString("uid");
                                     JSONObject user = jLocation.getJSONObject("user");
                                     String name = user.getString("name");
                                     Double lat = user.getDouble("latitude");
@@ -132,12 +135,18 @@ public class MapsActivity extends AppCompatActivity implements
                                     String bloodType = user.getString("bloodType");
                                     String amount = user.getString("amount");
                                     String phoneNumber = user.getString("phoneNumber");
+                                    String firebaseId = user.getString("firebaseId");
+                                    String image = user.getString("image");
 
                                     HashMap<String, String> data = new HashMap<>();
+                                    data.put("reqId", reqId);
+                                    data.put("uid", uid);
                                     data.put("name", name);
                                     data.put("bloodType", bloodType);
                                     data.put("amount", amount);
                                     data.put("phoneNumber", phoneNumber);
+                                    data.put("firebaseId", firebaseId);
+                                    data.put("image", image);
 
                                     latLng = new LatLng(lat, lng);
                                     MarkerOptions markerOptions = new MarkerOptions();
@@ -374,7 +383,7 @@ public class MapsActivity extends AppCompatActivity implements
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            streetName.setText("Canont get Address!");
+            streetName.setText("Cannot get Address!");
         }
         if(title.equals("donor")){
             donateInfo.setText("DONOR REQUEST");
@@ -455,16 +464,25 @@ public class MapsActivity extends AppCompatActivity implements
             String title = marker.getTitle();
             if (title.equals("donor")){
                 HashMap<String, String> markerData = markerInfo.get(marker.getId());
+                String reqId = markerData.get("reqId");
+                String uid = markerData.get("uid");
                 String name = markerData.get("name");
                 String bloodType = markerData.get("bloodType");
                 String amount = markerData.get("amount");
                 String phoneNumber = markerData.get("phoneNumber");
+                String firebaseId = markerData.get("firebaseId");
+                String image = markerData.get("image");
                 Toast.makeText(getApplicationContext(),name + bloodType + amount + phoneNumber, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent (MapsActivity.this, MapsActivity.class); // fake class
+                Intent intent = new Intent (MapsActivity.this, AcceptingBlood.class); // fake class
+                intent.putExtra("reqId", reqId);
+                intent.putExtra("uid", uid);
                 intent.putExtra("name", name);
                 intent.putExtra("bloodType", bloodType);
                 intent.putExtra("amount", amount);
                 intent.putExtra("phoneNumber", phoneNumber);
+                intent.putExtra("firebaseId", firebaseId);
+                intent.putExtra("image", image);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             } else {
@@ -478,6 +496,7 @@ public class MapsActivity extends AppCompatActivity implements
                 Intent intent = new Intent(MapsActivity.this, request_blood.class);
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }

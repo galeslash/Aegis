@@ -31,14 +31,14 @@
         </activity>
 
         <!-- Contact Us -->
-        <activity
+        <fragment
             android:name=".Contact_Us"
             android:label="Contact Us"
             android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
-        </activity>
+        </fragment>
 
         <!-- Register -->
         <activity
@@ -98,7 +98,7 @@
         </activity>
 
         <!-- User Profile -->
-        <activity
+        <fragment
             android:name=".UserProfile"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
@@ -117,11 +117,26 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".donation_history"
-            android:label="The Red Journal"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Donation History" />
         <activity android:name=".HistoryDetails" />
-        <activity android:name=".AcceptingBlood" />
-        <activity android:name=".notification_detail"></activity>
+        <activity android:name=".AcceptingBlood"
+            android:label="Request Details"/>
+	<activity android:name=".notification_detail"
+        android:label="Donor Details"/>
+
+        <!-- Firebase Notifications -->
+        <service android:name="firebase.FirebaseMsgService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="firebase.FirebaseId">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- ./Firebase Notifications -->
     </application>
 
 </manifest>
