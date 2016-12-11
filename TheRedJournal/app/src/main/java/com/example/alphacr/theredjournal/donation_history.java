@@ -73,11 +73,33 @@ public class donation_history extends AppCompatActivity {
         String tag_string_req = "req_get_history";
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_GET_HISTORY,
                 new Response.Listener<String>() {
-
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "Get Location Response: " + response);
+                        /**
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            boolean error = jObj.getBoolean("error");
+                            if (!error) {
+                                Log.d(TAG, "hello");
+                                JSONArray jsonArray = jObj.getJSONArray("history");
 
+                                for(int i=0;i<jsonArray.length();i++){
+                                    JSONObject jHistory =jsonArray.getJSONObject(i);
+                                    String name = jHistory.getString("longitude");
+                                    Log.d(TAG, name);
+
+                                }
+
+                            } else {
+                                String errorMsg = jObj.getString("error_msg");
+                                Toast.makeText(getApplicationContext(),
+                                        errorMsg, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        } **/
                     }
                 }, new Response.ErrorListener() {
                     @Override
