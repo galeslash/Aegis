@@ -14,6 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +38,7 @@ public class AcceptingBlood extends AppCompatActivity {
         TextView userRequest = (TextView) findViewById(R.id.titleUserRequest);
         TextView requestType = (TextView) findViewById(R.id.requestType);
         TextView requestAmount = (TextView) findViewById(R.id.requestAmount);
+        TextView phoneNumber = (TextView) findViewById(R.id.phonenumber);
         CircleImageView requestPicture = (CircleImageView) findViewById(R.id.userProfileView);
 
         progressDialog = new ProgressDialog(this);
@@ -52,10 +55,31 @@ public class AcceptingBlood extends AppCompatActivity {
         final String bloodType = bundle.getString("bloodType");
         final String amount = bundle.getString("amount");
         final String firebaseId = bundle.getString("firebaseId");
+        final String image = bundle.getString("image");
+        final String phone = bundle.getString("phoneNumber");
+
+        if(image!=null) {
+            Picasso.with(getApplicationContext())
+                    .load(image)
+                    .placeholder(R.drawable.photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .error(R.drawable.photo)
+                    .noFade()
+                    .into(requestPicture);
+        } else{
+            Picasso.with(getApplicationContext())
+                    .load(R.drawable.photo)
+                    .placeholder(R.drawable.photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .error(R.drawable.photo)
+                    .noFade()
+                    .into(requestPicture);
+        }
 
         userRequest.setText(user + " wants to request blood");
         requestType.setText(bloodType);
         requestAmount.setText(amount);
+        phoneNumber.setText(phone);
 
         Button acceptRequest = (Button) findViewById(R.id.acceptRequestButton);
         acceptRequest.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +162,13 @@ public class AcceptingBlood extends AppCompatActivity {
     private void showDialog() {
         if (!progressDialog.isShowing())
             progressDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AcceptingBlood.this, MapsActivity.class));
+        finish();
+
     }
 }
 

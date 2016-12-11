@@ -58,6 +58,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.example.alphacr.theredjournal.R.id.map;
+import static com.example.alphacr.theredjournal.R.id.start;
 
 public class MapsActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -135,6 +136,7 @@ public class MapsActivity extends AppCompatActivity implements
                                     String amount = user.getString("amount");
                                     String phoneNumber = user.getString("phoneNumber");
                                     String firebaseId = user.getString("firebaseId");
+                                    String image = user.getString("image");
 
                                     HashMap<String, String> data = new HashMap<>();
                                     data.put("reqId", reqId);
@@ -144,6 +146,7 @@ public class MapsActivity extends AppCompatActivity implements
                                     data.put("amount", amount);
                                     data.put("phoneNumber", phoneNumber);
                                     data.put("firebaseId", firebaseId);
+                                    data.put("image", image);
 
                                     latLng = new LatLng(lat, lng);
                                     MarkerOptions markerOptions = new MarkerOptions();
@@ -380,7 +383,7 @@ public class MapsActivity extends AppCompatActivity implements
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            streetName.setText("Canont get Address!");
+            streetName.setText("Cannot get Address!");
         }
         if(title.equals("donor")){
             donateInfo.setText("DONOR REQUEST");
@@ -468,6 +471,7 @@ public class MapsActivity extends AppCompatActivity implements
                 String amount = markerData.get("amount");
                 String phoneNumber = markerData.get("phoneNumber");
                 String firebaseId = markerData.get("firebaseId");
+                String image = markerData.get("image");
                 Toast.makeText(getApplicationContext(),name + bloodType + amount + phoneNumber, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent (MapsActivity.this, AcceptingBlood.class); // fake class
                 intent.putExtra("reqId", reqId);
@@ -477,6 +481,8 @@ public class MapsActivity extends AppCompatActivity implements
                 intent.putExtra("amount", amount);
                 intent.putExtra("phoneNumber", phoneNumber);
                 intent.putExtra("firebaseId", firebaseId);
+                intent.putExtra("image", image);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             } else {
@@ -490,6 +496,7 @@ public class MapsActivity extends AppCompatActivity implements
                 Intent intent = new Intent(MapsActivity.this, request_blood.class);
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }

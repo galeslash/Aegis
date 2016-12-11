@@ -113,10 +113,9 @@
         android:id="@+id/locImageBar" />
 
     <TextView
-        android:text="Metropolitan Medical Centre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/hospitalLocation"
+        android:id="@+id/phonenumber"
         android:layout_alignTop="@+id/locImageBar"
         android:layout_toRightOf="@+id/locImageBar"
         android:layout_toEndOf="@+id/locImageBar"

@@ -25,7 +25,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/join_our_cause"
+                android:src="@drawable/flatlands1"
                 android:id="@+id/imageView2"
                 android:focusable="false"
                 tools:ignore="ContentDescription"
