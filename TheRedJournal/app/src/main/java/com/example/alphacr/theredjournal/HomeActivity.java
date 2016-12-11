@@ -1,10 +1,14 @@
 package com.example.alphacr.theredjournal;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import firebase.NotificationUtils;
 import helper.SQLITEHandler;
 import helper.SessionManager;
 
@@ -34,6 +39,9 @@ public class HomeActivity extends AppCompatActivity
     private SQLITEHandler db;
     private SessionManager session;
 
+    TextView factBox;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -56,7 +64,6 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         View header=navigationView.getHeaderView(0);
 
@@ -101,7 +108,31 @@ public class HomeActivity extends AppCompatActivity
         nav_name.setText(uname);
         nav_email.setText(email);
 
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                }
+        };
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(AppConfig.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(AppConfig.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        NotificationUtils.clearNotifications(getApplicationContext());
+    }
+
 
     @Override
     public void onBackPressed() {
