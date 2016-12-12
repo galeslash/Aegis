@@ -1,5 +1,6 @@
 package com.example.alphacr.theredjournal;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
@@ -42,14 +43,13 @@ import java.util.Map;
 public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     private static final String TAG = donation_history.class.getSimpleName();
     private final Context context;
-
-    //String [] name={"Rumah Sakit Pusat Pertamina", "penis", "pneis"};
     ArrayList<String> address;
     ArrayList<String> name;
     ArrayList<String> bloodType;
     ArrayList<String> dateOfRequest;
     ArrayList<String> donorId;
     ArrayList<String> reqId;
+    private ProgressDialog progressDialog;
 
     // menampilkan list item dalam bentuk text dengan tipe data string dengan variable name
 
@@ -97,13 +97,12 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
             ReyclerViewHolder vholder = (ReyclerViewHolder) v.getTag();
 
             int position = vholder.getLayoutPosition();
-            Toast.makeText(context, "The Donor ID is.... : " + (donorId.get(position).toString()), Toast.LENGTH_LONG).show();
-            if (donorId.get(position) != null){
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setCancelable(false);
+            if (!donorId.get(position).isEmpty()){
                 getDonor(reqId.get(position),donorId.get(position));
             }
 
-
-            //Toast.makeText(context, "Menu ini berada di posisi " + position, Toast.LENGTH_LONG).show();
         }
     };
 
@@ -131,11 +130,11 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
                                 resultIntent.putExtra("eMail", mail);
                                 resultIntent.putExtra("image", donorPic);
                                 context.startActivity(resultIntent);
-
-
+                                hideDialog();
                             } else {
                                 String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show();
+                                //Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "There are no donators for this request.", Toast.LENGTH_LONG).show();
                             }
                         }catch (JSONException e) {
                             e.printStackTrace();
@@ -167,5 +166,15 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     @Override
     public int getItemCount() {
         return name.size();
+    }
+
+    private void hideDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    private void showDialog() {
+        if (!progressDialog.isShowing())
+            progressDialog.show();
     }
 }

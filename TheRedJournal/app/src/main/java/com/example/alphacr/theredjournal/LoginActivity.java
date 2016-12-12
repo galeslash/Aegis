@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Check for error node in json
                     if (!error) {
                         // user successfully logged in
-                        // Create login session
+                        // Create login sesion
                         session.setLogin(true);
 
                         // Now store the user in SQLite
