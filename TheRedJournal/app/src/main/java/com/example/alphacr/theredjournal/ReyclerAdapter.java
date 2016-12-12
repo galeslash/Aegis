@@ -1,14 +1,34 @@
 package com.example.alphacr.theredjournal;
 
 import android.content.Context;
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -20,6 +40,7 @@ import java.util.ArrayList;
 
 
 public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
+    private static final String TAG = donation_history.class.getSimpleName();
     private final Context context;
 
     //String [] name={"Rumah Sakit Pusat Pertamina", "penis", "pneis"};
@@ -27,6 +48,8 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     ArrayList<String> name;
     ArrayList<String> bloodType;
     ArrayList<String> dateOfRequest;
+    ArrayList<String> donorId;
+    ArrayList<String> reqId;
 
     // menampilkan list item dalam bentuk text dengan tipe data string dengan variable name
 
@@ -36,11 +59,14 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
         inflater = LayoutInflater.from(context);
     }
     public void Data(ArrayList<String> Name, ArrayList<String>  Address,
-                     ArrayList<String>  BloodType, ArrayList<String> DateOfRequest){
+                     ArrayList<String>  BloodType, ArrayList<String> DateOfRequest,
+                     ArrayList<String> DonorId, ArrayList<String> ReqId){
         name = Name;
         address = Address;
         bloodType = BloodType;
         dateOfRequest = DateOfRequest;
+        donorId = DonorId;
+        reqId = ReqId;
     }
     @Override
     public ReyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,16 +93,76 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     View.OnClickListener clickListener=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//member aksi saat cardview diklik berdasarkan posisi tertentu
+            //member aksi saat cardview diklik berdasarkan posisi tertentu
             ReyclerViewHolder vholder = (ReyclerViewHolder) v.getTag();
 
             int position = vholder.getLayoutPosition();
+            Toast.makeText(context, "The Donor ID is.... : " + (donorId.get(position).toString()), Toast.LENGTH_LONG).show();
+            if (donorId.get(position) != null){
+                getDonor(reqId.get(position),donorId.get(position));
+            }
 
-            Toast.makeText(context, "Menu ini berada di posisi " + position, Toast.LENGTH_LONG).show();
 
-
+            //Toast.makeText(context, "Menu ini berada di posisi " + position, Toast.LENGTH_LONG).show();
         }
     };
+
+    private void getDonor(final String req_id, final String donor_id){
+        String tag_string_req = "req_get_donor";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_GET_DONOR,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "Get Donor Response: " + response);
+                        try{
+                            JSONObject jObj = new JSONObject(response);
+                            boolean error = jObj.getBoolean("error");
+                            if (!error) {
+                                JSONObject donor = jObj.getJSONObject("msg");
+                                String fullName = donor.getString("fullName");
+                                String phone = donor.getString("phoneNumber");
+                                String mail = donor.getString("eMail");
+                                String donorPic = donor.getString("image");
+
+                                Intent resultIntent = new Intent(context, notification_detail.class);
+                                resultIntent.putExtra("fullName", fullName);
+                                resultIntent.putExtra("phoneNumber", phone);
+                                resultIntent.putExtra("eMail", mail);
+                                resultIntent.putExtra("image", donorPic);
+                                context.startActivity(resultIntent);
+
+
+                            } else {
+                                String errorMsg = jObj.getString("error_msg");
+                                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show();
+                            }
+                        }catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(context,"Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Update Error: " + error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<>();
+                params.put("reqId", req_id);
+                params.put("status", "Accepted");
+                params.put("donorId", donor_id);
+
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
 
     @Override
     public int getItemCount() {

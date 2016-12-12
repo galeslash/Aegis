@@ -40,11 +40,7 @@ public class donation_history extends AppCompatActivity {
     private static final String TAG = donation_history.class.getSimpleName();
     RecyclerView recyclerView;
     private SQLITEHandler db;
-    private ArrayList<String> name, bloodType, address, dateOfRequest;
-    //public static String [] bloodType;
-    //private String [] address;
-    //String [] address;
-    private List<String> addressList = new ArrayList<String>();
+    private ArrayList<String> name, bloodType, address, dateOfRequest, donorId, reqId;
     private ProgressDialog progressDialog;
     private ReyclerAdapter adapter;
 
@@ -59,10 +55,13 @@ public class donation_history extends AppCompatActivity {
         db = new SQLITEHandler(getApplicationContext());
         HashMap<String, String> user = db.getUserDetails();
         final String unique_id = user.get("uid");
+
         name = new ArrayList<String>();
         address = new ArrayList<String>();
         bloodType = new ArrayList<String>();
         dateOfRequest = new ArrayList<String>();
+        donorId = new ArrayList<String>();
+        reqId = new ArrayList<String>();
 
 
         getHistory(unique_id);
@@ -75,7 +74,7 @@ public class donation_history extends AppCompatActivity {
 
 
     private void getHistory(final String unique_id) {
-       //buat string request, buat jsonnya dibagi jadi 3 variable array
+        //buat string request, buat jsonnya dibagi jadi 3 variable array
         // misal : response = {uid : "abidu', user : {name : 'aoids', blood : 'a'}}
         // ditaro di variable uid = {} name = {} blood = {}
         String tag_string_req = "req_get_history";
@@ -102,6 +101,8 @@ public class donation_history extends AppCompatActivity {
                                     String blood = jHistory.getString("required_type");
                                     String status = jHistory.getString("status");
                                     String date_of_request = jHistory.getString("date_of_request");
+                                    String donor_id = jHistory.getString("donor_id");
+                                    String req_id = jHistory.getString("req_id");
 
                                     Geocoder geocoder;
                                     List<android.location.Address> addresses;
@@ -114,6 +115,10 @@ public class donation_history extends AppCompatActivity {
                                     name.add(streetName);
                                     bloodType.add(blood);
                                     dateOfRequest.add(date_of_request);
+                                    donorId.add(donor_id);
+                                    reqId.add(req_id);
+
+
                                 }
 
                             } else {
@@ -123,7 +128,7 @@ public class donation_history extends AppCompatActivity {
                             }
 
                             //membuat adapter baru untuk reyclerview
-                            adapter.Data(name, address, bloodType, dateOfRequest);
+                            adapter.Data(name, address, bloodType, dateOfRequest, donorId, reqId);
                             recyclerView.setAdapter(adapter);
                             //menset nilai dari adapter
                             recyclerView.setHasFixedSize(true);
@@ -161,6 +166,7 @@ public class donation_history extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
+
 
     private void hideDialog() {
         if (progressDialog.isShowing())
