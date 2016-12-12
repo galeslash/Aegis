@@ -14,6 +14,8 @@ public class AppConfig {
     public static String URL_EDIT_PROFILE = "http://redjournal.hol.es/editProfile.php";
     public static String URL_REQUEST_BLOOD = "http://redjournal.hol.es/requestBlood.php";
     public static String URL_GET_LOCATION = "http://redjournal.hol.es/getLocation.php";
+    public static String URL_GET_HISTORY = "http://redjournal.hol.es/bloodHistory.php";
+    public static String URL_GET_DONOR = "http://redjournal.hol.es/getDonor.php";
     public static String URL_RESPONSE_REQUEST = "http://redjournal.hol.es/responseRequest.php";
     public static final String SHARED_PREF = "ah_firebase";
 

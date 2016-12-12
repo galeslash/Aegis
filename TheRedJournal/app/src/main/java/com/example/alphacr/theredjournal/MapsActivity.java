@@ -112,7 +112,6 @@ public class MapsActivity extends AppCompatActivity implements
 
     private void getLocation() {
         String tag_string_req = "req_get_location";
-
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_GET_LOCATION,
                 new Response.Listener<String>() {
                     @Override
