@@ -1,10 +1,13 @@
 package com.example.alphacr.theredjournal;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,62 +25,65 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import helper.SQLITEHandler;
+
 
 public class donation_history extends AppCompatActivity {
     private static final String TAG = donation_history.class.getSimpleName();
     RecyclerView recyclerView;
     private SQLITEHandler db;
-
-
-    //String [] name = {"Rumah Sakit Pusat Pertamina", "MENTAL", "pneis"};
-    String [] name = {};
-    //String [] address= {"Jakarta", "Depok", "penis"};
-    String [] address= {};
-    String [] bloodType;
-
-
-
+    private ArrayList<String> name, bloodType, address, dateOfRequest;
+    //public static String [] bloodType;
+    //private String [] address;
+    //String [] address;
+    private List<String> addressList = new ArrayList<String>();
+    private ProgressDialog progressDialog;
+    private ReyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_history);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+
         db = new SQLITEHandler(getApplicationContext());
         HashMap<String, String> user = db.getUserDetails();
         final String unique_id = user.get("uid");
+        name = new ArrayList<String>();
+        address = new ArrayList<String>();
+        bloodType = new ArrayList<String>();
+        dateOfRequest = new ArrayList<String>();
+
 
         getHistory(unique_id);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         //menampilkan reyclerview yang ada pada file layout dengan id reycler view
+        adapter = new ReyclerAdapter(this);
 
-        ReyclerAdapter adapter = new ReyclerAdapter(this);
-        adapter.Data(name, address, bloodType);
-        //membuat adapter baru untuk reyclerview
-        recyclerView.setAdapter(adapter);
-        //menset nilai dari adapter
-        recyclerView.setHasFixedSize(true);
-        //menset setukuran
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //menset layoutmanager dan menampilkan daftar/list
-        //dalam bentuk linearlayoutmanager pada class saat ini
     }
+
+
 
     private void getHistory(final String unique_id) {
        //buat string request, buat jsonnya dibagi jadi 3 variable array
         // misal : response = {uid : "abidu', user : {name : 'aoids', blood : 'a'}}
         // ditaro di variable uid = {} name = {} blood = {}
         String tag_string_req = "req_get_history";
+
+        progressDialog.setMessage("Loading ...");
+        showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_GET_HISTORY,
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "Get Location Response: " + response);
-                        /**
                         try {
                             JSONObject jObj = new JSONObject(response);
                             boolean error = jObj.getBoolean("error");
@@ -87,9 +93,18 @@ public class donation_history extends AppCompatActivity {
 
                                 for(int i=0;i<jsonArray.length();i++){
                                     JSONObject jHistory =jsonArray.getJSONObject(i);
-                                    String name = jHistory.getString("longitude");
-                                    Log.d(TAG, name);
 
+                                    String longitude = jHistory.getString("longitude");
+                                    String latitude = jHistory.getString("latitude");
+                                    String blood = jHistory.getString("required_type");
+                                    String status = jHistory.getString("status");
+                                    String date_of_request = jHistory.getString("date_of_request");
+
+                      
+                                    address.add("longitude: " + longitude + " latitude: " + latitude);
+                                    name.add(status);
+                                    bloodType.add(blood);
+                                    dateOfRequest.add(date_of_request);
                                 }
 
                             } else {
@@ -97,16 +112,28 @@ public class donation_history extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         errorMsg, Toast.LENGTH_LONG).show();
                             }
+
+                            //membuat adapter baru untuk reyclerview
+                            adapter.Data(name, address, bloodType, dateOfRequest);
+                            recyclerView.setAdapter(adapter);
+                            //menset nilai dari adapter
+                            recyclerView.setHasFixedSize(true);
+                            //menset setukuran
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            //menset layoutmanager dan menampilkan daftar/list
+                            //dalam bentuk linearlayoutmanager pada class saat ini
+
+                            hideDialog();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        } **/
-
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Update Error: " + error.getMessage());
+                        hideDialog();
                     }
                 }) {
                 @Override
@@ -120,6 +147,17 @@ public class donation_history extends AppCompatActivity {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+    }
+
+    private void hideDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    private void showDialog() {
+        if (!progressDialog.isShowing())
+            progressDialog.show();
     }
 
     @Override

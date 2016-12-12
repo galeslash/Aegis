@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 /**
  * Created by Revin on 07-Nov-16.
@@ -20,9 +23,10 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
     private final Context context;
 
     //String [] name={"Rumah Sakit Pusat Pertamina", "penis", "pneis"};
-    String [] address;
-    String [] name;
-    String [] bloodType;
+    ArrayList<String> address;
+    ArrayList<String> name;
+    ArrayList<String> bloodType;
+    ArrayList<String> dateOfRequest;
 
     // menampilkan list item dalam bentuk text dengan tipe data string dengan variable name
 
@@ -31,10 +35,12 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
-    public void Data(String [] Name, String [] Address, String [] BloodType){
+    public void Data(ArrayList<String> Name, ArrayList<String>  Address,
+                     ArrayList<String>  BloodType, ArrayList<String> DateOfRequest){
         name = Name;
         address = Address;
-        bloodType = bloodType;
+        bloodType = BloodType;
+        dateOfRequest = DateOfRequest;
     }
     @Override
     public ReyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,10 +52,11 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
 
     @Override
     public void onBindViewHolder(ReyclerViewHolder holder, int position) {
-        holder.tv1.setText(name[position]);
+        holder.tv1.setText(name.get(position));
         holder.tv1.setOnClickListener(clickListener);
-        holder.tv2.setText(address[position]);
+        holder.tv2.setText(address.get(position));
         holder.tv2.setOnClickListener(clickListener);
+        holder.tvDate.setText(dateOfRequest.get(position));
         holder.imageView.setOnClickListener(clickListener);
         holder.tv1.setTag(holder);
         holder.imageView.setTag(holder);
@@ -73,6 +80,6 @@ public class ReyclerAdapter extends RecyclerView.Adapter<ReyclerViewHolder> {
 
     @Override
     public int getItemCount() {
-        return name.length;
+        return name.size();
     }
 }
