@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity
                 new IntentFilter(AppConfig.PUSH_NOTIFICATION));
 
         // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
+        //NotificationUtils.clearNotifications(getApplicationContext());
     }
 
 

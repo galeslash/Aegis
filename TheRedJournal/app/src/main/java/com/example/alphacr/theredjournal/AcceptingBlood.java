@@ -47,6 +47,7 @@ public class AcceptingBlood extends AppCompatActivity {
         db = new SQLITEHandler(getApplicationContext());
         HashMap<String, String> profile = db.getUserDetails();
         final String donorId = profile.get("uid");
+        final String bloodTypeDonor = profile.get("bloodType");
 
         Bundle bundle = getIntent().getExtras();
         final String reqId = bundle.getString("reqId");
@@ -85,10 +86,46 @@ public class AcceptingBlood extends AppCompatActivity {
         acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                if (bloodTypeDonor.equals("O-")) {
+                    responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                } else if (bloodTypeDonor == "O+" ) {
+                    if (bloodType == "AB+" || bloodType == "A+" || bloodType =="B+"
+                            || bloodType =="O+") {
+                        responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }
+                } else if (bloodTypeDonor =="B-") {
+                    if (bloodType == "AB+" || bloodType =="AB-" || bloodType =="B+"
+                            || bloodType =="B-") {
+                        responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }
+                } else if (bloodTypeDonor =="B+") {
+                    if (bloodType =="AB+" || bloodType =="B+") {
+                        responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }
+                } else if (bloodTypeDonor =="A-") {
+                    if (bloodType =="AB+" || bloodType =="AB-" || bloodType =="A+"
+                            || bloodType =="A-") {
+                        responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }
+                } else if (bloodTypeDonor.equals("A+")) {
+                    if (bloodType.equals("AB+") || bloodType.equals("A+")) {
+                        responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }
+                } else if (bloodTypeDonor =="AB-") {
+                    if (bloodType =="AB+" || bloodType =="AB-") {
+                        responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }
+                } else if (bloodTypeDonor =="AB+") {
+                    if (bloodType == "AB+") {
+                        responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                            Toast.LENGTH_LONG).show();
+                }
             }
-        });
 
+        });
     }
 
     private void responseRequest(final String reqId, final String uid, final String donorId, final String user, final String bloodType,
