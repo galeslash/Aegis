@@ -73,6 +73,7 @@ public class donation_history extends AppCompatActivity {
         String tag_string_req = "req_get_history";
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_GET_HISTORY,
                 new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "Get Location Response: " + response);
@@ -100,6 +101,7 @@ public class donation_history extends AppCompatActivity {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         } **/
+
                     }
                 }, new Response.ErrorListener() {
                     @Override

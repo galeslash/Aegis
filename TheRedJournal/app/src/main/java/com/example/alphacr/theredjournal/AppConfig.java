@@ -27,7 +27,4 @@ public class AppConfig {
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 
 
-
-
-
 }
