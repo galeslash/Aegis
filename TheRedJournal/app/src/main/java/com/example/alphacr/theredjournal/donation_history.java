@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.identity.intents.Address;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -24,10 +25,13 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import helper.SQLITEHandler;
 
@@ -80,7 +84,6 @@ public class donation_history extends AppCompatActivity {
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_GET_HISTORY,
                 new Response.Listener<String>() {
-
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "Get Location Response: " + response);
@@ -100,9 +103,15 @@ public class donation_history extends AppCompatActivity {
                                     String status = jHistory.getString("status");
                                     String date_of_request = jHistory.getString("date_of_request");
 
-                      
-                                    address.add("longitude: " + longitude + " latitude: " + latitude);
-                                    name.add(status);
+                                    Geocoder geocoder;
+                                    List<android.location.Address> addresses;
+                                    LatLng latLng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+                                    geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                    addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                                    String streetName = addresses.get(0).getAddressLine(0);
+
+                                    address.add("Status: " + status);
+                                    name.add(streetName);
                                     bloodType.add(blood);
                                     dateOfRequest.add(date_of_request);
                                 }
@@ -127,6 +136,9 @@ public class donation_history extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Geocoder error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
