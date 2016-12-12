@@ -122,11 +122,13 @@
         <activity android:name=".AcceptingBlood"
             android:label="Request Details"/>
 	<activity android:name=".notification_detail"
+
         android:label="Donor Details"/>
 
         <!-- Firebase Notifications -->
         <service android:name="firebase.FirebaseMsgService">
             <intent-filter>
+                <action android:name="launch"/>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
