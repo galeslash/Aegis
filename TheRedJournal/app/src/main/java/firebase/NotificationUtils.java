@@ -63,7 +63,7 @@ public class NotificationUtils {
                 .setContentIntent(resultPendingIntent)
                 .setSound(notificationSoundURI)
                 .setStyle(inboxStyle)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.notifbellred)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();

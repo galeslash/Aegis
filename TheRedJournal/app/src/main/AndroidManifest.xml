@@ -106,24 +106,34 @@
         <activity
             android:name=".EditProfile"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <!-- Request Blood -->
         <activity
             android:name=".request_blood"
             android:label="Request Donation"
             android:launchMode="singleTop" />
+
+        <!-- HomeActivity -->
         <activity
             android:name=".HomeActivity"
             android:label="The Red Journal"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Donation History -->
         <activity
             android:name=".donation_history"
             android:label="Donation History" />
         <activity android:name=".HistoryDetails" />
+
+        <!-- Accepting Blood -->
         <activity android:name=".AcceptingBlood"
             android:label="Request Details"/>
-	<activity android:name=".notification_detail"
 
-        android:label="Donor Details"/>
+        <!-- Notification Detail -->
+	    <activity
+            android:name=".notification_detail"
+            android:label="Donor Details"/>
 
         <!-- Firebase Notifications -->
         <service android:name="firebase.FirebaseMsgService">
@@ -138,7 +148,6 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <!-- ./Firebase Notifications -->
     </application>
 
 </manifest>
