@@ -353,12 +353,6 @@ public class MapsActivity extends AppCompatActivity implements
         subInfoView.setOrientation(LinearLayout.VERTICAL);
         subInfoView.setLayoutParams(subInfoViewParams);
 
-        //TextView subInfoLat = new TextView(MapsActivity.this);
-        //subInfoLat.setText("Lat: " + marker.getPosition().latitude);
-        //TextView subInfoLnt = new TextView(MapsActivity.this);
-        //subInfoLnt.setText("Lnt: " + marker.getPosition().longitude);
-        //subInfoView.addView(subInfoLat);
-        //subInfoView.addView(subInfoLnt);
 
         String title = marker.getTitle();
 
@@ -383,7 +377,13 @@ public class MapsActivity extends AppCompatActivity implements
             // TODO Auto-generated catch block
             e.printStackTrace();
             streetName.setText("Cannot get Address!");
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            Log.d(TAG, "IndexOutOfBound");
         }
+
+
+
         if(title.equals("donor")){
             donateInfo.setText("DONOR REQUEST");
             subInfoView.addView(donateInfo);

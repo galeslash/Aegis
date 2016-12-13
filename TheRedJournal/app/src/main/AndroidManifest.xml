@@ -99,6 +99,7 @@
 
         <!-- User Profile -->
         <fragment
+
             android:name=".UserProfile"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
@@ -111,7 +112,12 @@
         <activity
             android:name=".request_blood"
             android:label="Request Donation"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:parentActivityName=".MapsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MapsActivity" />
+        </activity>
 
         <!-- HomeActivity -->
         <activity
@@ -139,8 +145,14 @@
         </activity>
 
         <!-- Accepting Blood -->
-        <activity android:name=".AcceptingBlood"
-            android:label="Request Details"/>
+        <activity
+            android:name=".AcceptingBlood"
+            android:label="Request Details"
+            android:parentActivityName=".MapsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MapsActivity" />
+        </activity>
 
         <!-- Notification Detail -->
 	    <activity
