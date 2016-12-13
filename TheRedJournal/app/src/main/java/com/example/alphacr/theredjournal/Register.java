@@ -41,7 +41,7 @@ public class Register extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLITEHandler db;
-    private TextView title, Gender, Bloodtype, Rhesus;
+    private TextView Gender, Bloodtype, Rhesus;
     private DatePickerDialog datePickerDialog;
 
     @Override

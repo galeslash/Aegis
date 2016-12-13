@@ -123,8 +123,20 @@
         <!-- Donation History -->
         <activity
             android:name=".donation_history"
-            android:label="Donation History" />
-        <activity android:name=".HistoryDetails" />
+            android:label="Donation History"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".HistoryDetails"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
 
         <!-- Accepting Blood -->
         <activity android:name=".AcceptingBlood"
@@ -133,7 +145,12 @@
         <!-- Notification Detail -->
 	    <activity
             android:name=".notification_detail"
-            android:label="Donor Details"/>
+            android:label="Donor Details"
+            android:parentActivityName=".donation_history">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".donation_history"/>
+        </activity>
 
         <!-- Firebase Notifications -->
         <service android:name="firebase.FirebaseMsgService">

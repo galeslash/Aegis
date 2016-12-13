@@ -205,7 +205,7 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
     protected synchronized void buildGoogleApiClient() {
-        Toast.makeText(this, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"buildGoogleApiClient");
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -215,7 +215,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onConnected(Bundle bundle) {
-        Toast.makeText(this, "onConnected", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"onConnected!");
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         mLocationRequest = new LocationRequest();
@@ -231,12 +231,12 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(this, "onConnectionSuspended", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"onConnectionSuspended");
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(this, "onConnectionFailed", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"onConnectionFailed");
     }
 
     @Override
@@ -471,7 +471,6 @@ public class MapsActivity extends AppCompatActivity implements
                 String phoneNumber = markerData.get("phoneNumber");
                 String firebaseId = markerData.get("firebaseId");
                 String image = markerData.get("image");
-                Toast.makeText(getApplicationContext(),name + bloodType + amount + phoneNumber, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent (MapsActivity.this, AcceptingBlood.class); // fake class
                 intent.putExtra("reqId", reqId);
                 intent.putExtra("uid", uid);
@@ -487,11 +486,6 @@ public class MapsActivity extends AppCompatActivity implements
             } else {
                 latitude = marker.getPosition().latitude;
                 longitude = marker.getPosition().longitude;
-                Toast.makeText(MapsActivity.this,
-                        "onInfoWindowClick():\n" +
-                                latitude + "\n" +
-                                longitude,
-                        Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MapsActivity.this, request_blood.class);
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
