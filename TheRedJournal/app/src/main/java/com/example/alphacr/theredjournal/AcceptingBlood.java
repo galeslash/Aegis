@@ -90,39 +90,58 @@ public class AcceptingBlood extends AppCompatActivity {
                 if (bloodTypeDonor.equals("O-")) {
                     responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
                 } else if (bloodTypeDonor.equals("O+") ) {
-                    if (bloodType == "AB+" || bloodType == "A+" || bloodType =="B+"
-                            || bloodType =="O+") {
+                    if (bloodType.equals("AB+") || bloodType.equals("A+") || bloodType.equals("B+")
+                            || bloodType.equals("O+")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                                Toast.LENGTH_LONG).show();
                     }
                 } else if (bloodTypeDonor.equals("B-")) {
-                    if (bloodType == "AB+" || bloodType =="AB-" || bloodType =="B+"
-                            || bloodType =="B-") {
+                    if (bloodType.equals("AB+") || bloodType.equals("AB-") || bloodType.equals("B+")
+                            || bloodType.equals("B-")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                                Toast.LENGTH_LONG).show();
                     }
                 } else if (bloodTypeDonor.equals("B+")) {
-                    if (bloodType =="AB+" || bloodType =="B+") {
+                    if (bloodType.equals("AB+") || bloodType.equals("B+")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                                Toast.LENGTH_LONG).show();
                     }
                 } else if (bloodTypeDonor.equals("A-")) {
-                    if (bloodType =="AB+" || bloodType =="AB-" || bloodType =="A+"
-                            || bloodType =="A-") {
+                    if (bloodType.equals("AB+") || bloodType.equals("AB-") || bloodType.equals("A+")
+                            || bloodType.equals("A-")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                                Toast.LENGTH_LONG).show();
                     }
                 } else if (bloodTypeDonor.equals("A+")) {
                     if (bloodType.equals("AB+") || bloodType.equals("A+")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                                Toast.LENGTH_LONG).show();
                     }
                 } else if (bloodTypeDonor.equals("AB-")) {
-                    if (bloodType =="AB+" || bloodType =="AB-") {
+                    if (bloodType.equals("AB+") || bloodType.equals("AB-")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    }  else {
+                        Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                                Toast.LENGTH_LONG).show();
                     }
                 } else if (bloodTypeDonor.equals("AB+")) {
-                    if (bloodType == "AB+") {
+                    if (bloodType.equals("AB+")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
+                                Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Your blood is not compatible!",
-                            Toast.LENGTH_LONG).show();
                 }
             }
 

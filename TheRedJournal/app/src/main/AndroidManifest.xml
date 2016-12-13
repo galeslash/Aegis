@@ -99,6 +99,7 @@
 
         <!-- User Profile -->
         <fragment
+
             android:name=".UserProfile"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
