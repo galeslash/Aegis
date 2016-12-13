@@ -111,7 +111,7 @@ public class donation_history extends AppCompatActivity {
                                     addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
                                     String streetName = addresses.get(0).getAddressLine(0);
 
-                                    address.add("Status: " + status);
+                                    address.add("Status: " + status+ ". " + "\r\n" + "Requested Blood Type: " + blood);
                                     name.add(streetName);
                                     bloodType.add(blood);
                                     dateOfRequest.add(date_of_request);
