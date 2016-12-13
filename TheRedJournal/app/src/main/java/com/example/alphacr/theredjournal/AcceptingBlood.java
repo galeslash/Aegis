@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -88,21 +89,21 @@ public class AcceptingBlood extends AppCompatActivity {
             public void onClick(View v) {
                 if (bloodTypeDonor.equals("O-")) {
                     responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
-                } else if (bloodTypeDonor == "O+" ) {
+                } else if (bloodTypeDonor.equals("O+") ) {
                     if (bloodType == "AB+" || bloodType == "A+" || bloodType =="B+"
                             || bloodType =="O+") {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
                     }
-                } else if (bloodTypeDonor =="B-") {
+                } else if (bloodTypeDonor.equals("B-")) {
                     if (bloodType == "AB+" || bloodType =="AB-" || bloodType =="B+"
                             || bloodType =="B-") {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
                     }
-                } else if (bloodTypeDonor =="B+") {
+                } else if (bloodTypeDonor.equals("B+")) {
                     if (bloodType =="AB+" || bloodType =="B+") {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
                     }
-                } else if (bloodTypeDonor =="A-") {
+                } else if (bloodTypeDonor.equals("A-")) {
                     if (bloodType =="AB+" || bloodType =="AB-" || bloodType =="A+"
                             || bloodType =="A-") {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
@@ -111,11 +112,11 @@ public class AcceptingBlood extends AppCompatActivity {
                     if (bloodType.equals("AB+") || bloodType.equals("A+")) {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
                     }
-                } else if (bloodTypeDonor =="AB-") {
+                } else if (bloodTypeDonor.equals("AB-")) {
                     if (bloodType =="AB+" || bloodType =="AB-") {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
                     }
-                } else if (bloodTypeDonor =="AB+") {
+                } else if (bloodTypeDonor.equals("AB+")) {
                     if (bloodType == "AB+") {
                         responseRequest(reqId, uid, donorId, user, bloodType, amount, firebaseId);
                     }
@@ -205,7 +206,20 @@ public class AcceptingBlood extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(AcceptingBlood.this, MapsActivity.class));
         finish();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 
