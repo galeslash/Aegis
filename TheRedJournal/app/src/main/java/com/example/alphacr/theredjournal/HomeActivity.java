@@ -2,6 +2,7 @@ package com.example.alphacr.theredjournal;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -177,7 +179,32 @@ public class HomeActivity extends AppCompatActivity
                     .addToBackStack(null).commit();
             return true;
         } else if (id == R.id.log_out) {
-            logOutUser();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Confirm");
+            builder.setMessage("Are you sure?");
+
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do nothing but close the dialog
+                    logOutUser();
+                    dialog.dismiss();
+                }
+            });
+
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    // Do nothing
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
             return true;
         } else if (id == R.id.donation_history) {
             Intent intent = new Intent (HomeActivity.this, donation_history.class);
